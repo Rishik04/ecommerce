@@ -8,17 +8,18 @@ height: 80px;
 box-shadow: 0 2px 5px 2px rgba(0,0,0,.1);
 background-color: white;
 font-family: 'Montserrat';
-z-index: 99999;
+margin-bottom: 10px
 `
 
 const Wrapper = styled.div`
 padding: 15px 20px;
 display: flex;
 justify-content: space-around;
-align-items: center
+align-items: center;
+
 `
 const Left = styled.div`flex: 1;`
-const Centre = styled.div`flex: 1; display: flex; align-item: centre`
+const Centre = styled.div`flex: 1; display: flex; align-item: centre; justify-content: center`
 const Right = styled.div`flex: 1; display: flex; justify-content: flex-end; align-items: center`
 
 const BrandLogo = styled.h1`font-weight: 600; font-family: 'Montserrat'; font-size: 20px`
