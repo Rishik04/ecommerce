@@ -36,4 +36,15 @@ export const productCategory = [
     {id: 4, title: "Staters", img:"assets/juice.png", totalCount: 22, bg: 'FEF4EA'},
     {id: 6, title: "Desserts", img:"assets/desserts.png", totalCount: 22, bg: 'EDEDFC'},
     {id: 7, title: "Burger", img:"assets/burger.png", totalCount: 22, bg: 'E9F4E3'},
+];
+
+export const bestSeller = [
+  {id: 1, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 249, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true},
+  {id: 2, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 149, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false},
+  {id: 3, title: "Chesse and Onion", category: "PIZZA", price: 99, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true},
+  {id: 4, title: "Veg Cheese Burger", category: "Burger", price: 49, type: "Medium", img: 'assets/burger.png', discount: 5, wishlist: false},
+  {id: 5, title: "Red Sauce Pasta", category: "Pasta", price: 349, type: "Full", img: 'assets/pasta.png', discount: 10, wishlist: true},
+  {id: 6, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 199, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false},
+  {id: 7, title: "Hot Chocolate Brownie", category: "Desserts", price: 299, type: "With Icecream", img: 'assets/desserts.png', discount: 10, wishlist: false},
+  {id: 8, title: "Peppy Paneer", category: "PIZZA", price: 149, type: "Cheese Burst", img: 'assets/pizza.png', discount: 10, wishlist: false},
 ]

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { productCategory } from "../data";
 
 const Container = styled.div`
-  margin: 40px 60px;
+  margin: 0 60px;
   padding: 20px 0px;
   position: relative;
 `;
