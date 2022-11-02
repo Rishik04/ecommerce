@@ -3,6 +3,7 @@ import About from '../components/About'
 import BestProducts from '../components/BestProducts'
 import Category from '../components/Category'
 import CategoryProducts from '../components/CategoryProducts'
+import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
 
@@ -15,6 +16,7 @@ const Home = () => {
     <CategoryProducts/>
     <About/>
     <BestProducts />
+    <Footer/>
     </>
   )
 }
