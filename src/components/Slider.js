@@ -26,7 +26,7 @@ const Arrow = styled.div`
   margin: auto;
   left: ${(props) => props.direction === "left" && "15px"};
   right: ${(props) => props.direction === "right" && "15px"};
-  z-index: 99900;
+  z-index: 100;
 `;
 
 const Wrapper = styled.div`

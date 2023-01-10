@@ -39,12 +39,12 @@ export const productCategory = [
 ];
 
 export const bestSeller = [
-  {id: 1, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 249, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true},
-  {id: 2, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 149, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false},
-  {id: 3, title: "Chesse and Onion", category: "PIZZA", price: 99, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true},
-  {id: 4, title: "Veg Cheese Burger", category: "Burger", price: 49, type: "Medium", img: 'assets/burger.png', discount: 5, wishlist: false},
-  {id: 5, title: "Red Sauce Pasta", category: "Pasta", price: 349, type: "Full", img: 'assets/pasta.png', discount: 10, wishlist: true},
-  {id: 6, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 199, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false},
-  {id: 7, title: "Hot Chocolate Brownie", category: "Desserts", price: 299, type: "With Icecream", img: 'assets/desserts.png', discount: 10, wishlist: false},
-  {id: 8, title: "Peppy Paneer", category: "PIZZA", price: 149, type: "Cheese Burst", img: 'assets/pizza.png', discount: 10, wishlist: false},
+  {id: 1, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 249, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true, qty: 0},
+  {id: 2, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 149, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false, qty: 0},
+  {id: 3, title: "Chesse and Onion", category: "PIZZA", price: 99, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: true, qty: 0},
+  {id: 4, title: "Veg Cheese Burger", category: "Burger", price: 49, type: "Medium", img: 'assets/burger.png', discount: 5, wishlist: false, qty: 0},
+  {id: 5, title: "Red Sauce Pasta", category: "Pasta", price: 349, type: "Full", img: 'assets/pasta.png', discount: 10, wishlist: true, qty: 0},
+  {id: 6, title: "Veg Farmhouse Pizza", category: "PIZZA", price: 199, type: "Regular", img: 'assets/pizza.png', discount: 10, wishlist: false, qty: 0},
+  {id: 7, title: "Hot Chocolate Brownie", category: "Desserts", price: 299, type: "With Icecream", img: 'assets/desserts.png', discount: 10, wishlist: false, qty: 0},
+  {id: 8, title: "Peppy Paneer", category: "PIZZA", price: 149, type: "Cheese Burst", img: 'assets/pizza.png', discount: 10, wishlist: false, qty: 0},
 ]
