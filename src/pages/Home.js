@@ -6,6 +6,7 @@ import CategoryProducts from '../components/CategoryProducts'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
+import ProductList from './ProductList'
 
 const Home = () => {
   return (
@@ -15,7 +16,7 @@ const Home = () => {
     <Category/>
     <CategoryProducts/>
     <About/>
-    <BestProductItems />
+    <ProductList />
     <Footer/>
     </>
   )

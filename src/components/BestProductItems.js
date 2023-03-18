@@ -143,9 +143,6 @@ export default class BestProductItems extends Component {
     const { products } = this.state;
     return (
       <Container>
-        <Title>
-          Best Selling <span style={{ color: "darkorange" }}>Products</span>
-        </Title>
         <Wrapper>
           {products.map((item) => {
             return (
