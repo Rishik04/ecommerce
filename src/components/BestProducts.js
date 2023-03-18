@@ -6,24 +6,9 @@ import {
   Remove,
   ShoppingBagOutlined,
 } from "@mui/icons-material";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { bestSeller } from "../data";
-
-const Container = styled.div`
-  min-height: 100vh;
-  background-color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  margin: 30px 80px;
-  flex-wrap: wrap;
-  justify-content: flex-evenly;
-`;
+import { Badge } from '@mui/material'
 
 const ProductCard = styled.div`
   display: flex;
@@ -40,10 +25,6 @@ const ProductCard = styled.div`
   max-width: 230px;
 `;
 
-const Title = styled.h1`
-  font-size: 40px;
-  font-weight: 600;
-`;
 const CardTitle = styled.h1`
   font-size: 20px;
   font-weight: 600;
@@ -78,9 +59,10 @@ const CardTop = styled.div`
   align-items: center;
 `;
 const Button = styled.button`
+  border: none;
+  display: flex;
+  align-items: center;
   background: transparent;
-  border: none; display: flex;
-  align-items: center
 `;
 
 const ImageContainer = styled.div`
@@ -145,70 +127,101 @@ const Cart = styled.div`
   justify-content: flex-end;
 `;
 
-const BestProducts = () => {
-  const [Count, setCount] = useState(0);
-  const handle = (toggle)=>{
-    (toggle === "add") ? setCount(Count+1) : (Count === 0 ? setCount(0): setCount(Count-1));
 
-    // console.log(Count);
-  }
-  return (
-    <Container>
-      <Title>
-        Best Selling <span style={{ color: "darkorange" }}>Products</span>
-      </Title>
-      <Wrapper>
-        {bestSeller.map((product) => (
-          <ProductCard key={product.id}>
-            <CardTop>
-              <Discount>-{product.discount}%</Discount>
-              <Wishlist>
-                {product.wishlist ? (
-                  <Favorite style={{ color: "red" }} />
-                ) : (
-                  <FavoriteBorderOutlined />
-                )}
-              </Wishlist>
-            </CardTop>
-            <ImageContainer>
-              <Image src={product.img} />
-            </ImageContainer>
-            <Description>
-              <Category>{product.category}</Category>
-              <CardTitle>{product.title}</CardTitle>
-              <Type>{product.type}</Type>
-              <Price>
-                <CurrencyRupeeOutlined
-                  style={{ alignItems: "center", fontSize: "medium" }}
-                />
-                {product.price}/-
-              </Price>
-            </Description>
-            <CartQuan>
-              <CartToggle>
-                <Remove style={{ margin: "auto", fontSize: "medium", cursor: "pointer", display: "flex", alignItems: "center", justifyContent:"center", padding: 5 }} onClick={()=>handle("remove")}/>
-                <QuanCount placeholder="0" value={Count} onChange= {e => setCount(e.target.value)}/>
-                <Add style={{ margin: "auto", fontSize: "medium", cursor: "pointer", display: "flex", alignItems: "center", justifyContent:"center", padding: 5 }} onClick={()=>handle("add")}/>
-              </CartToggle>
-              <Cart>
-                <Button>
-                  <ShoppingBagOutlined
-                    style={{
-                      backgroundColor: "darkorange",
-                      padding: 4,
-                      borderRadius: 50,
-                      color: "white",
-                      margin: "auto"
-                    }}
+class BestProducts extends React.Component {
+ constructor(){
+   super();
+   this.state = ({})
+ }
+
+  render(){
+
+    const {id, title, category, price, type, img, discount, wishlist, qty} = this.props.product;
+
+    return (
+            <ProductCard key={id} id={id}>
+              <CardTop>
+                <Discount>-{discount}%</Discount>
+                <Wishlist>
+                  {wishlist ? (
+                    <Favorite style={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderOutlined />
+                  )}
+                </Wishlist>
+              </CardTop>
+              <ImageContainer>
+                <Image src={img} />
+              </ImageContainer>
+              <Description>
+                <Category>{category}</Category>
+                <CardTitle>{title}</CardTitle>
+                <Type>{type}</Type>
+                <Price>
+                  <CurrencyRupeeOutlined
+                    style={{ alignItems: "center", fontSize: "medium" }}
                   />
-                </Button>
-              </Cart>
-            </CartQuan>
-          </ProductCard>
-        ))}
-      </Wrapper>
-    </Container>
-  );
-};
+                  {price}/-
+                </Price>
+              </Description>
 
+              <CartQuan>
+                <CartToggle>
+                  {/* Remove Product From Cart */}
+                  <Remove
+                    style={{
+                      margin: "auto",
+                      fontSize: "medium",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: 5,
+                    }}
+                    onClick={()=>this.props.OnDecrease(this.props.product)}
+                  />
+
+                  {/* Update the Quantity to the input  */}
+                  <QuanCount
+                    placeholder="0"
+                    value={qty}
+                    disabled
+                    // onChange={(e) => setCount(e.target.value)}
+                  />
+
+                  {/* add item to the cart  */}
+
+                  <Add
+                    style={{
+                      margin: "auto",
+                      fontSize: "medium",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: 5,
+                    }}
+                    onClick={()=>this.props.OnIncrease(this.props.product)}
+                  />
+                </CartToggle>
+                <Cart>
+                  <Button bg={qty!==0 ? "darkorange" : ""}>
+                    <Badge badgeContent={qty} color={"success"}>
+                    <ShoppingBagOutlined
+                      style={{
+                        padding: 4,
+                        borderRadius: 50,
+                        color: "white",
+                        margin: "auto",
+                        background: (qty!==0) ? "darkorange" : "#ececec"
+                      }}
+                    />
+                    </Badge>
+                  </Button>
+                </Cart>
+              </CartQuan>
+            </ProductCard>
+    );
+  };
+}
 export default BestProducts;
