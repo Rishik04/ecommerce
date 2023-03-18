@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SliderItems } from "../data";
 
 const Container = styled.div`

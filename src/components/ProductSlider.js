@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
-import { productCategory } from "../data";
+// import { productCategory } from "../data";
 
 
 const ProductsSlider = styled.div`
@@ -112,12 +112,23 @@ const Sliderdesc = styled.p`
 
 const ProductSlider = () => {
     const [ItemIndex, setItemIndex] = useState(0);
+    const [productCategory, setProductCategory] = useState([]);
+
+      useEffect(() => {
+       fetch('http://localhost:8000/api/category')
+       .then(res => res.json())
+       .then(res => setProductCategory(res))
+       .catch(err => console.log(err))
+      }, []);
+
     const handleClick = (direction) => {
       if (direction === "left") {
         setItemIndex(ItemIndex > 0 ? ItemIndex - 1 : 4);
       } else {
         setItemIndex(ItemIndex < 4 ? ItemIndex + 1 : 0);
       }
+
+      
     };
   return (
     <Container>
@@ -128,7 +139,7 @@ const ProductSlider = () => {
     <Slide>
       <Wrapper Index={ItemIndex}>
         {productCategory.map((product) => (
-          <Slider key={product.id} bg={product.bg}>
+          <Slider key={product._id} bg={product.bg}>
             <SliderImage src={product.img} />
             <SliderTitle>{product.title}</SliderTitle>
             <Sliderdesc>({product.totalCount} items)</Sliderdesc>
