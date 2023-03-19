@@ -39,12 +39,12 @@ export const categories = [
 // ];
 
 export const bestSeller = [
-  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 249, "type": "Regular", "img": 'assets/pizza.png', "discount": 10, "wishlist": true, "qty": 0},
-  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 149, "type": "Regular", "img": 'assets/pizza.png', "discount": 10, "wishlist": false, "qty": 0},
-  {"title": "Chesse and Onion", "category": "PIZZA", "price": 99, "type": "Regular", "img": 'assets/pizza.png', "discount": 10, "wishlist": true, "qty": 0},
-  {"title": "Veg Cheese Burger", "category": "Burger", "price": 49, "type": "Medium", "img": 'assets/burger.png', "discount": 5, "wishlist": false, "qty": 0},
-  {"title": "Red Sauce Pasta", "category": "Pasta", "price": 349, "type": "Full", "img": 'assets/pasta.png', "discount": 10, "wishlist": true, "qty": 0},
-  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 199, "type": "Regular", "img": 'assets/pizza.png', "discount": 10, "wishlist": false, "qty": 0},
-  {"title": "Hot Chocolate Brownie", "category": "Desserts", "price": 299, "type": "With Icecream", "img": 'assets/desserts.png', "discount": 10, "wishlist": false, "qty": 0},
-  {"title": "Peppy Paneer", "category": "PIZZA", "price": 149, "type": "Cheese Burst", "img": 'assets/pizza.png', "discount": 10, "wishlist": false, "qty": 0},
+  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 249, "type": "Regular", "img": 'assets/pizza.png', "discount": 10},
+  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 149, "type": "Regular", "img": 'assets/pizza.png', "discount": 10},
+  {"title": "Chesse and Onion", "category": "PIZZA", "price": 99, "type": "Regular", "img": 'assets/pizza.png', "discount": 10},
+  {"title": "Veg Cheese Burger", "category": "Burger", "price": 49, "type": "Medium", "img": 'assets/burger.png', "discount": 5},
+  {"title": "Red Sauce Pasta", "category": "Pasta", "price": 349, "type": "Full", "img": 'assets/pasta.png', "discount": 10},
+  {"title": "Veg Farmhouse Pizza", "category": "PIZZA", "price": 199, "type": "Regular", "img": 'assets/pizza.png', "discount": 10},
+  {"title": "Hot Chocolate Brownie", "category": "Desserts", "price": 299, "type": "With Icecream", "img": 'assets/desserts.png', "discount": 10},
+  {"title": "Peppy Paneer", "category": "PIZZA", "price": 149, "type": "Cheese Burst", "img": 'assets/pizza.png', "discount": 10},
 ]

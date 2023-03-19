@@ -1,23 +1,11 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, default: mongoose } = require('mongoose');
 
 const bestSellerSchema = new Schema({
-    title:{
-        type: String,
+    productId:{
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    category:{
-        type: String,
-        required: true
-    },
-    price:{
-        type: Number,
-        required: true
-    },
-    type:{
-        type: String,
-        required: true
-    },
-    discount:{
+    totalOrders:{
         type: Number,
         required: true
     }

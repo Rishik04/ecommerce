@@ -25,6 +25,7 @@ export default class BestProductItems extends Component {
 
     OnIncrease = (product)=>{
         const {products} = this.state;
+        // console.log(products)
         const index = products.indexOf(product);
         products[index].qty+=1;
 
@@ -43,112 +44,30 @@ export default class BestProductItems extends Component {
 
     }
 
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    
     this.state = {
-      products: [
-        {
-          id: 1,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 249,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 2,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 149,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 3,
-          title: "Chesse and Onion",
-          category: "PIZZA",
-          price: 99,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 4,
-          title: "Veg Cheese Burger",
-          category: "Burger",
-          price: 49,
-          type: "Medium",
-          img: "assets/burger.png",
-          discount: 5,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 5,
-          title: "Red Sauce Pasta",
-          category: "Pasta",
-          price: 349,
-          type: "Full",
-          img: "assets/pasta.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 6,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 199,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 7,
-          title: "Hot Chocolate Brownie",
-          category: "Desserts",
-          price: 299,
-          type: "With Icecream",
-          img: "assets/desserts.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 8,
-          title: "Peppy Paneer",
-          category: "PIZZA",
-          price: 149,
-          type: "Cheese Burst",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-      ],
+      products: this.props.products,
     };
   }
+
+
   render() {
+    
     const { products } = this.state;
+    console.log(products)
     return (
       <Container>
         <Wrapper>
           {products.map((item) => {
+            let userItem = {wishlist: false, qty: 0};
+            let Nitem = {...item, ...userItem}
+            // console.log(Nitem);
             return (
               <BestProducts
-                product = {item}
-                key={item.id}
+                product = {Nitem}
+                key={Nitem._id}
                 OnIncrease={this.OnIncrease}
                 OnDecrease={this.OnDecrease}
               />

@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import BestProductItems from "../components/BestProductItems";
 import BestProducts from "../components/BestProducts";
@@ -25,6 +27,40 @@ const Title = styled.h1`
 const Price = styled.p``;
 
 const Product = () => {
+  const location = useLocation();
+  const catType = location.state;
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [product, setProduct] = useState([]);
+
+  useEffect(()=>{
+    const RequestToken = axios.CancelToken.source();
+    // console.log(RequestToken);
+
+    const getList = async ()=>{
+      try{
+        setIsLoading(true);
+        const res = await axios.get(`http://localhost:8000/api/products/${catType}`, {
+          cancelToken: RequestToken.token
+        });
+        setIsLoading(false);
+        // console.log(res);
+        if(res.data.status === 400)
+          console.log("No Items")
+        else
+          setProduct(res.data.success.data);
+      }
+      catch(err){
+      }
+    }
+    getList();
+    
+    return ()=>{
+      RequestToken.cancel();
+    }
+  }, [catType])
+  
+
   return (
     <>
       <Navbar />
@@ -34,7 +70,7 @@ const Product = () => {
           <span style={{ color: "darkorange" }}>Products</span> 
         </Title>
         <ProductSlider/>
-        <BestProductItems/>
+        { (isLoading) ? "Loading" : <BestProductItems products={product}/>}
       </Container>
       <Footer />
     </>
