@@ -32,14 +32,18 @@ const BestProductItems = ()=> {
 
   const {loading} = products;
 
-  const cartItems = useSelector((state)=>state.cart);
+  const cartItems = useSelector((state)=>state.carts);
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
 
   useEffect(() => {
     dispatch(getProducts())
    }, [dispatch]);
+
+  //  useEffect(()=>{
+  //   dispatch(getProducts())
+  //  }, [cartItems])
 
 
    const handleQuantity = (item)=>{
@@ -53,12 +57,13 @@ const BestProductItems = ()=> {
           { (loading) ? "Loading" :
             products.data.map((item) => {
               return (
-                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleQuantity(item)}/>
+                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleQuantity(item)} cart={cartItems}/>
               );
             })
           }
         </Wrapper>
       </Container>
+
     );
 }
 

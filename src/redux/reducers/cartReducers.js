@@ -13,7 +13,7 @@ export const cartReducer = (state = initialState, action)=>{
             return {...state, cartItems:[...state.cartItems, item]}
         else{
             const getItem = state.cartItems.map(x=>x._id === item._id?{...item, qty:item.qty+x.qty}:x);
-            console.log(getItem);
+            // console.log(getItem);
             return {...state, cartItems:getItem};
         }
         default: return state;
