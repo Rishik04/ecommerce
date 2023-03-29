@@ -1,6 +1,10 @@
-import React, { Component } from "react";
+import axios from "axios";
+import React, { Component, useEffect, useState } from "react";
 import styled from "styled-components";
 import BestProducts from "./BestProducts";
+import {getProducts} from '../redux/actions/index'
+import {addQuantity} from '../redux/actions/quantity'
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -21,60 +25,41 @@ const Wrapper = styled.div`
   margin: 30px 80px;
 `;
 
-export default class BestProductItems extends Component {
+const BestProductItems = ()=> {
 
-    OnIncrease = (product)=>{
-        const {products} = this.state;
-        // console.log(products)
-        const index = products.indexOf(product);
-        products[index].qty+=1;
+  const dispatch = useDispatch();
+  const products = useSelector((state)=>state.products);
 
-        this.setState({products: products});
+  const {loading} = products;
 
-    }
+  const cartItems = useSelector((state)=>state.cart);
 
-    OnDecrease = (product)=>{
-        const {products} = this.state;
-        const index = products.indexOf(product);
-
-        if(products[index].qty > 0)
-            products[index].qty-=1;
-
-        this.setState({products: products});
-
-    }
-
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      products: this.props.products,
-    };
-  }
+  console.log(cartItems);
 
 
-  render() {
-    
-    const { products } = this.state;
-    console.log(products)
+  useEffect(() => {
+    dispatch(getProducts())
+   }, [dispatch]);
+
+
+   const handleQuantity = (item)=>{
+      dispatch(addQuantity(item))
+   }
+
+
     return (
       <Container>
         <Wrapper>
-          {products.map((item) => {
-            let userItem = {wishlist: false, qty: 0};
-            let Nitem = {...item, ...userItem}
-            // console.log(Nitem);
-            return (
-              <BestProducts
-                product = {Nitem}
-                key={Nitem._id}
-                OnIncrease={this.OnIncrease}
-                OnDecrease={this.OnDecrease}
-              />
-            );
-          })}
+          { (loading) ? "Loading" :
+            products.data.map((item) => {
+              return (
+                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleQuantity(item)}/>
+              );
+            })
+          }
         </Wrapper>
       </Container>
     );
-  }
 }
+
+export default BestProductItems;
