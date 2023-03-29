@@ -50,7 +50,7 @@ color: gray;
 font-weight: 500;
 `
 
-const MenuItem = styled.div`font-size: 14px; margin: 15px; font-weight: 500`;
+const MenuItem = styled.div`font-size: 14px; margin: 15px; font-weight: 500; cursor: pointer`;
 
 
 const Navbar = () => {

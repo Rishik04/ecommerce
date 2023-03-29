@@ -1,6 +1,7 @@
 import {
   Add,
   CurrencyRupeeOutlined,
+  DeleteOutlined,
   Favorite,
   FavoriteBorderOutlined,
   Remove,
@@ -182,7 +183,19 @@ const BestProducts = (props)=> {
               <CartQuan>
                 <CartToggle>
                   {/* Remove Product From Cart */}
-                  <Remove
+                
+                {qty == 1 ?
+                  <DeleteOutlined style={{
+                    margin: "auto",
+                    fontSize: "medium",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 5,
+                  }} onClick={props.deleteItem} />
+                  :
+                    <Remove
                     style={{
                       margin: "auto",
                       fontSize: "medium",
@@ -192,9 +205,10 @@ const BestProducts = (props)=> {
                       justifyContent: "center",
                       padding: 5,
                     }}
-                    onClick={()=>console.log("minus")}
+                    onClick={qty === 0 ? ()=>alert("Can't Remove") : props.removeQuantity}
                   />
-
+                  
+                  }
                   {/* Update the Quantity to the input  */}
                   <QuanCount
                     placeholder="0"

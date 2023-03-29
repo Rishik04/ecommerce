@@ -3,7 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 import styled from "styled-components";
 import BestProducts from "./BestProducts";
 import {getProducts} from '../redux/actions/index'
-import {addQuantity} from '../redux/actions/quantity'
+import {addQuantity, deleteItem, remoeQuantity} from '../redux/actions/quantity'
 import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
@@ -46,8 +46,14 @@ const BestProductItems = ()=> {
   //  }, [cartItems])
 
 
-   const handleQuantity = (item)=>{
+   const handleIncQuantity = (item)=>{
       dispatch(addQuantity(item))
+   }
+   const handleDecQuantity = (item)=>{
+      dispatch(remoeQuantity(item))
+   }
+   const deleteItems = (item)=>{
+      dispatch(deleteItem(item))
    }
 
 
@@ -57,7 +63,7 @@ const BestProductItems = ()=> {
           { (loading) ? "Loading" :
             products.data.map((item) => {
               return (
-                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleQuantity(item)} cart={cartItems}/>
+                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleIncQuantity(item)} cart={cartItems} removeQuantity={()=>handleDecQuantity(item)} deleteItem={()=>deleteItems(item)}/>
               );
             })
           }
