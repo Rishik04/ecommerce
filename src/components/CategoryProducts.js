@@ -49,7 +49,7 @@ const CategoryProducts = () => {
           Browse Our <br />
           <span style={{ color: "darkorange" }}>Hottest</span> Categories
         </Title>
-        <Link to={'products'}>
+        <Link to={'products'} state={'Pizza'}>
         <Button>
           See All{" "}
           <EastOutlined

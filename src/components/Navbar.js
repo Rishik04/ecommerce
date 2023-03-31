@@ -2,6 +2,7 @@ import { LocationOnOutlined, Search, ShoppingBagOutlined } from '@mui/icons-mate
 import { Badge } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -59,7 +60,7 @@ const Navbar = () => {
   return (
     <Container>
         <Wrapper>
-            <Left><BrandLogo>My Logo</BrandLogo></Left>
+        <Link to={'/'} style={{textDecoration: "none", color: "black"}}><Left><BrandLogo>My Logo</BrandLogo></Left></Link>
             <Centre>
                 <LocationContainer>
                     <Location>
@@ -75,7 +76,9 @@ const Navbar = () => {
             <Right>
                 <MenuItem>Sign In</MenuItem>
                 <MenuItem>Register</MenuItem>
-                <MenuItem>Cart <Badge badgeContent={qty} color='primary'><ShoppingBagOutlined/></Badge></MenuItem>
+                <Link to={'/cart'} style={{textDecoration: "none", color: "black"}}>
+                    <MenuItem>Cart <Badge badgeContent={qty} color='primary'><ShoppingBagOutlined/></Badge></MenuItem>
+                </Link>
             </Right>
         </Wrapper>
     </Container>
