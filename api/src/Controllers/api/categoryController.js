@@ -1,5 +1,5 @@
 const categoryModel = require("../../Models/api/categoryModel");
-const { successResponse } = require("../../Response/response");
+const { successResponse, errorResponse } = require("../../Response/response");
 
 const getCategory = async (req, res)=>{
     try{
@@ -14,19 +14,36 @@ const getCategory = async (req, res)=>{
     }
 }
 
+//add a category
 const addCategory = async (req, res)=>{
     try{
         const categoryList = new categoryModel(req.body).save();
-        if(categoryList)
-            successResponse(res, "successfully saved", categoryList, 200);
+        if(categoryList.length==0)
+            errorResponse(res, "error", "Unable to save", 400)
         else
-            res.send({"data":{"message": "Unable to Save", status: 400}})
+            successResponse(res, "successfully saved", categoryList, 200);
     }
     catch(err){
-        res.send({"error": err, status: 400});
+        errorResponse(res, err.name, err.message, 400)
+    }
+}
+
+//add all category
+const addCategoryAll = async (req, res)=>{
+    try{
+        // console.log(req.body);
+        const productList = await categoryModel.insertMany(req.body);
+
+        if(productList.length===0)
+            errorResponse(res, "error", "Unable to save", 400)
+        else
+            successResponse(res, "successfully saved", productList, 200);
+    }
+    catch(err){
+        errorResponse(res, err.name, err.message, 400)
     }
 }
 
 module.exports = {
-    getCategory, addCategory
+    getCategory, addCategory, addCategoryAll
 }

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from 'react'
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
+import axios from "axios";
+import { Link } from "react-router-dom";
 // import { productCategory } from "../data";
 
 
@@ -115,10 +117,17 @@ const ProductSlider = () => {
     const [productCategory, setProductCategory] = useState([]);
 
       useEffect(() => {
-       fetch('http://localhost:8000/api/category')
-       .then(res => res.json())
-       .then(res => setProductCategory(res))
-       .catch(err => console.log(err))
+       const getCategory = async ()=>{
+        try{
+          const res = await axios.get('http://localhost:8000/api/category');
+          // console.log(res)
+          setProductCategory(res.data.success.data)
+        }
+        catch(err){
+          console.log(err);
+        }
+       }
+       getCategory();
       }, []);
 
     const handleClick = (direction) => {
@@ -143,9 +152,11 @@ const ProductSlider = () => {
             <SliderImage src={product.img} />
             <SliderTitle>{product.title}</SliderTitle>
             <Sliderdesc>({product.totalCount} items)</Sliderdesc>
+            <Link to={'/products'} state={product.title}>
             <SliderIcons>
               <EastOutlined />
             </SliderIcons>
+            </Link>
           </Slider>
         ))}
       </Wrapper>

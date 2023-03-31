@@ -10,25 +10,25 @@ const userSchema = new Schema({
         required: true
     }],
     address:[{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'addressess'
     }],
 
     payment:[{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'cards'
     }],
 
     cart:[{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'carts'
     }],
     order:[{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'orders'
     }],
     wishlist:[{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'wishlists'
     }]
 

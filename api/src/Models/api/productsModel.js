@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const bestSellerSchema = new Schema({
+const productsSchema = new Schema({
     title:{
         type: String,
         required: true
@@ -20,10 +20,17 @@ const bestSellerSchema = new Schema({
     discount:{
         type: Number,
         required: true
+    },
+    img:{
+        type: String,
+        required: true
+    },
+    ratings:{
+        type: Number
     }
 
 }, { timestamps: true})
 
-const bestSellerModel = model('bestSellers', bestSellerSchema);
+const productsModel = model('products', productsSchema);
 
-module.exports = bestSellerModel
+module.exports = productsModel

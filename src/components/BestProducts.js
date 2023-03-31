@@ -1,14 +1,17 @@
 import {
   Add,
   CurrencyRupeeOutlined,
+  DeleteOutlined,
   Favorite,
   FavoriteBorderOutlined,
   Remove,
   ShoppingBagOutlined,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Badge } from '@mui/material'
+import { useDispatch, useSelector } from "react-redux";
+import {addQuantity} from '../redux/actions/quantity'
 
 const ProductCard = styled.div`
   display: flex;
@@ -128,18 +131,30 @@ const Cart = styled.div`
 `;
 
 
-class BestProducts extends React.Component {
- constructor(){
-   super();
-   this.state = ({})
- }
+const BestProducts = (props)=> {
 
-  render(){
+  const {_id, discount, price, title, type, category, img} = props.product;
+  const qtys = (props.cart.cartItems.length!=0) ? props.cart.cartItems.filter(x => x._id === _id)[0] : 0;
+  const qty = qtys ? qtys.qty : 0
 
-    const {id, title, category, price, type, img, discount, wishlist, qty} = this.props.product;
+
+
+
+
+  const wishlist = false;
+  
+
+  
+
+  
+  // console.log(qty);
+  // console.log("best products", getState);
+
+  // const dispatch = useDispatch();
+  
 
     return (
-            <ProductCard key={id} id={id}>
+            <ProductCard id={_id}>
               <CardTop>
                 <Discount>-{discount}%</Discount>
                 <Wishlist>
@@ -168,7 +183,19 @@ class BestProducts extends React.Component {
               <CartQuan>
                 <CartToggle>
                   {/* Remove Product From Cart */}
-                  <Remove
+                
+                {qty == 1 ?
+                  <DeleteOutlined style={{
+                    margin: "auto",
+                    fontSize: "medium",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 5,
+                  }} onClick={props.deleteItem} />
+                  :
+                    <Remove
                     style={{
                       margin: "auto",
                       fontSize: "medium",
@@ -178,15 +205,15 @@ class BestProducts extends React.Component {
                       justifyContent: "center",
                       padding: 5,
                     }}
-                    onClick={()=>this.props.OnDecrease(this.props.product)}
+                    onClick={qty === 0 ? ()=>alert("Can't Remove") : props.removeQuantity}
                   />
-
+                  
+                  }
                   {/* Update the Quantity to the input  */}
                   <QuanCount
                     placeholder="0"
                     value={qty}
                     disabled
-                    // onChange={(e) => setCount(e.target.value)}
                   />
 
                   {/* add item to the cart  */}
@@ -201,7 +228,7 @@ class BestProducts extends React.Component {
                       justifyContent: "center",
                       padding: 5,
                     }}
-                    onClick={()=>this.props.OnIncrease(this.props.product)}
+                    onClick={props.addQuantity}
                   />
                 </CartToggle>
                 <Cart>
@@ -223,5 +250,4 @@ class BestProducts extends React.Component {
             </ProductCard>
     );
   };
-}
 export default BestProducts;

@@ -1,18 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import BestProductItems from "../components/BestProductItems";
 import BestProducts from "../components/BestProducts";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ProductSlider from "../components/ProductSlider";
+import { getProductsById } from "../redux/actions";
 
 const Container = styled.div`
   background: #f9f9f9;
   padding-top: 12vh;
-`;
-const Wrapper = styled.div`
-`;
-const ImageContainer = styled.div`
 `;
 
 const Title = styled.h1`
@@ -22,9 +22,18 @@ const Title = styled.h1`
   text-align:center;
 `;
 
-const Price = styled.p``;
+const SubTitle = styled.h2`
+  margin: 0;
+  padding: 0;
+  font-size: 40px;
+  text-align: center;
+  color: darkorange;
+`;
 
 const Product = () => {
+  const location = useLocation();
+  const catType = location.state;
+
   return (
     <>
       <Navbar />
@@ -34,7 +43,10 @@ const Product = () => {
           <span style={{ color: "darkorange" }}>Products</span> 
         </Title>
         <ProductSlider/>
-        <BestProductItems/>
+        <SubTitle>
+          {catType}
+        </SubTitle>
+        <BestProductItems catType={catType}/>
       </Container>
       <Footer />
     </>

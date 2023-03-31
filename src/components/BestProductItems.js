@@ -1,6 +1,13 @@
-import React, { Component } from "react";
+import axios from "axios";
+import React, { Component, useEffect, useState } from "react";
 import styled from "styled-components";
 import BestProducts from "./BestProducts";
+import {getProducts, getProductsById} from '../redux/actions/index'
+import {addQuantity, deleteItem, remoeQuantity} from '../redux/actions/quantity'
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import {ErrorProd} from "./skeleton/NotFound";
+import {Skeleton} from "./skeleton/Skeleton";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -21,141 +28,57 @@ const Wrapper = styled.div`
   margin: 30px 80px;
 `;
 
-export default class BestProductItems extends Component {
+const BestProductItems = ({catType})=> {
 
-    OnIncrease = (product)=>{
-        const {products} = this.state;
-        const index = products.indexOf(product);
-        products[index].qty+=1;
+  const dispatch = useDispatch();
+  const products = useSelector((state)=>state.products);
 
-        this.setState({products: products});
+  const {loading} = products;
 
+  const cartItems = useSelector((state)=>state.carts);
+
+  const location = useLocation();
+  // console.log(location);
+
+
+  useEffect(() => {
+    if (location.pathname === '/products') {
+      dispatch(getProductsById(catType));
+    } else if (location.pathname === '/') {
+      dispatch(getProducts());
     }
+   }, [dispatch, location.pathname, cartItems, catType]);
 
-    OnDecrease = (product)=>{
-        const {products} = this.state;
-        const index = products.indexOf(product);
+  //  useEffect(()=>{
+  //   dispatch(getProducts())
+  //  }, [cartItems])
 
-        if(products[index].qty > 0)
-            products[index].qty-=1;
 
-        this.setState({products: products});
+   const handleIncQuantity = (item)=>{
+      dispatch(addQuantity(item))
+   }
+   const handleDecQuantity = (item)=>{
+      dispatch(remoeQuantity(item))
+   }
+   const deleteItems = (item)=>{
+      dispatch(deleteItem(item))
+   }
 
-    }
 
-  constructor() {
-    super();
-
-    this.state = {
-      products: [
-        {
-          id: 1,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 249,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 2,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 149,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 3,
-          title: "Chesse and Onion",
-          category: "PIZZA",
-          price: 99,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 4,
-          title: "Veg Cheese Burger",
-          category: "Burger",
-          price: 49,
-          type: "Medium",
-          img: "assets/burger.png",
-          discount: 5,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 5,
-          title: "Red Sauce Pasta",
-          category: "Pasta",
-          price: 349,
-          type: "Full",
-          img: "assets/pasta.png",
-          discount: 10,
-          wishlist: true,
-          qty: 0,
-        },
-        {
-          id: 6,
-          title: "Veg Farmhouse Pizza",
-          category: "PIZZA",
-          price: 199,
-          type: "Regular",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 7,
-          title: "Hot Chocolate Brownie",
-          category: "Desserts",
-          price: 299,
-          type: "With Icecream",
-          img: "assets/desserts.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-        {
-          id: 8,
-          title: "Peppy Paneer",
-          category: "PIZZA",
-          price: 149,
-          type: "Cheese Burst",
-          img: "assets/pizza.png",
-          discount: 10,
-          wishlist: false,
-          qty: 0,
-        },
-      ],
-    };
-  }
-  render() {
-    const { products } = this.state;
     return (
       <Container>
         <Wrapper>
-          {products.map((item) => {
-            return (
-              <BestProducts
-                product = {item}
-                key={item.id}
-                OnIncrease={this.OnIncrease}
-                OnDecrease={this.OnDecrease}
-              />
-            );
-          })}
+          { (loading) ? <Skeleton /> : products.data.length===0 ? <ErrorProd error={products.error} type={"notFound"}/> :
+            products.data.map((item) => {
+              return (
+                <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleIncQuantity(item)} cart={cartItems} removeQuantity={()=>handleDecQuantity(item)} deleteItem={()=>deleteItems(item)}/>
+              );
+            })
+          }
         </Wrapper>
       </Container>
+
     );
-  }
 }
+
+export default BestProductItems;

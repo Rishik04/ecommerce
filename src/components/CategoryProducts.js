@@ -1,5 +1,6 @@
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ProductSlider from "./ProductSlider";
 
@@ -48,6 +49,7 @@ const CategoryProducts = () => {
           Browse Our <br />
           <span style={{ color: "darkorange" }}>Hottest</span> Categories
         </Title>
+        <Link to={'products'} state={'Pizza'}>
         <Button>
           See All{" "}
           <EastOutlined
@@ -60,6 +62,7 @@ const CategoryProducts = () => {
             }}
           />
         </Button>
+        </Link>
       </InfoContainer>
       </Container>
       <ProductSlider/>

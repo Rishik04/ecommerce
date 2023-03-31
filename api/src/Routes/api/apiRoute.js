@@ -1,10 +1,10 @@
 const express = require('express');
 const categoryRoute = require('./categoryRouter');
-const bestSellerRoute = require('./bestSellerRoute');
+const productsRoute = require('./productsRouter');
 
 const router = express.Router();
 
 router.use('/category', categoryRoute);
-router.use('/bestseller', bestSellerRoute);
+router.use('/products', productsRoute);
 
 module.exports = router;
