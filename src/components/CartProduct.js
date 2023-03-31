@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PriceSideBar from "./PriceSideBar";
@@ -37,7 +36,11 @@ const CartProduct = () => {
       <ProductContainer>
         {getState.cartItems.length === 0
           ? <ErrorProd type={"emptyCart"} error={"Oops! your cart is empty."}/>
-          : getState.cartItems.map((item) => (
+          :
+          <SideBarContainer>
+
+        <div>
+            {getState.cartItems.map((item) => (
               <Card key={item._id}>
                 <Left>
                   <ImageContainer>
@@ -117,8 +120,13 @@ const CartProduct = () => {
                 </Right>
               </Card>
             ))}
+        </div>
+
+        <PriceSideBar />
+
+        </SideBarContainer>
+        }
       </ProductContainer>
-      <PriceSideBar /> 
     </Container>
   );
 };
@@ -133,7 +141,7 @@ const Container = styled.div`
 `;
 const Card = styled.div`
   box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
-  background: white;
+  background: #fff;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -150,7 +158,7 @@ const Type = styled.p`
   font-family: "Lora";
   color: gray;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
   padding: 0;
   margin: 5px 0;
 `;
@@ -213,3 +221,6 @@ const InputField = styled.input`
   font-weight: 500;
   text-align: center;
 `;
+
+const SideBarContainer  = styled.div`display: flex;`
+

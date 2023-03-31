@@ -30,3 +30,12 @@ export const deleteItem = (product)=>(dispatch, getState)=>{
         dispatch({type: ERROR, payload: "Can't delete products"})
     }
 }
+
+// export const getLocalStorage = ()=>(dispatch, getState)=>{
+//     try{
+//         console.log(localStorage.getItem('cartItems'))
+//     }
+//     catch(err){
+//         dispatch({type: ERROR, payload: "No Products"});
+//     }
+// }

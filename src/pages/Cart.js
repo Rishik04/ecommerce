@@ -6,7 +6,7 @@ import CartProduct from "../components/CartProduct";
 
 const Container = styled.div`
   padding: 15vh 40px;
-  background: #fefefe;
+  background: #f8f6f3;
 `;
 const Wrapper = styled.div`margin: 0 60px`;
 const ButtonContainer = styled.div``;
