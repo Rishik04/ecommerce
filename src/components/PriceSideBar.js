@@ -1,55 +1,130 @@
+import { CurrencyRupeeOutlined } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`position: relative`;
+const PriceSideBar = ({Total}) => {
 
-const Card = styled.div`
-//   height: 400px;
-  padding: 10px;
-  // width: 350px;
-  background: #fff;
-`;
-const Title = styled.h1``;
-const Image = styled.img`
-height: 100%;
-width: 100%;
-`;
-const ProductSec = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-const ProductTitle = styled.p`
-  color: gray;
-  flex-wrap: wrap;
-  margin: 10px
-`;
 
-const Wrapper = styled.div``;
+  console.log(Total)
+  const baseFare = 15;
 
-const PriceSideBar = () => {
+  let shipping = (Math.round((baseFare +(Total/100)*2)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2).toFixed(2);
+  let tax = (Math.round(((Total/100)*18)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2).toFixed(2);
+
+  let total = (Math.round(((Total+shipping+tax)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2)).toFixed(2);
+
   return (
     <Container>
       <Wrapper>
         <Card>
-          <Title>Procees To Checkout</Title>
+          <Title>SUMMARY</Title>
           <ProductSec>
-            {/* <Image src="assets/bg.jpg" /> */}
-            <ProductTitle>
-              Kadhai Paneer Serves (250gm) Spicy
-            </ProductTitle>
+            <SubTotal>SUBTOTAL</SubTotal>
+            <Price>
+              <CurrencyRupeeOutlined style={{ fontSize: 18 }} />
+              {Total}
+            </Price>
           </ProductSec>
+
           <ProductSec>
-            {/* <Image src="assets/bg.jpg" /> */}
-            <ProductTitle>
-              Kadhai Paneer Serves (250gm) Spicy
-            </ProductTitle>
+            <SubTotal>SHIPPING FEE</SubTotal>
+            <Price>
+              <CurrencyRupeeOutlined style={{ fontSize: 18 }} />
+              {shipping}
+            </Price>
           </ProductSec>
+
+          <ProductSec>
+            <SubTotal>TAX</SubTotal>
+            <Price>
+              <CurrencyRupeeOutlined style={{ fontSize: 18 }} />
+              {tax}
+            </Price>
+          </ProductSec>
+
+          <hr style={{ opacity: 0.5 }} />
+
+          <ProductSec>
+            <SubTotal>TOTAL PRICE</SubTotal>
+            <Price>
+              <CurrencyRupeeOutlined style={{ fontSize: 18 }} />
+              {total}
+            </Price>
+          </ProductSec>
+
+          <ButtonContainer>
+            <Button>PROCEED TO CHECKOUT</Button>
+          </ButtonContainer>
         </Card>
-        <Image src="assets/sideBar.png"/>
+        <Image src="assets/sideBar.png" />
       </Wrapper>
     </Container>
   );
 };
 
 export default PriceSideBar;
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const Card = styled.div`
+  padding: 10px;
+  background: #fff;
+`;
+const Title = styled.h1`
+  margin: 20px auto;
+
+  &:after{
+    display: block;
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 2.5px;
+    background: #000;
+  }
+`;
+
+const Image = styled.img`
+  height: 100%;
+  width: 100%;
+`;
+const ProductSec = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const SubTotal = styled.p`
+  color: gray;
+  font-family: "Montserrat";
+`;
+
+const Price = styled.span`
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: "Montserrat";
+  font-weight: 500;
+`;
+
+const Wrapper = styled.div``;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+`;
+
+const Button = styled.button`
+  border: none;
+  outline: none;
+  background: darkorange;
+  color: white;
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Montserrat";
+`;

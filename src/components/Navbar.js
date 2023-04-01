@@ -1,88 +1,133 @@
-import { LocationOnOutlined, Search, ShoppingBagOutlined } from '@mui/icons-material'
-import { Badge } from '@mui/material'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import {
+  LocationOnOutlined,
+  Search,
+  ShoppingBagOutlined,
+} from "@mui/icons-material";
+import { Badge } from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Container = styled.div`
-height: 80px;
-box-shadow: 0 2px 5px 2px rgba(0,0,0,.1);
-background-color: white;
-font-family: 'Montserrat';
-margin-bottom: 10px;
-position: fixed;
-width: 100%;
-z-index: 1000;
-`
+  height: 80px;
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  font-family: "Montserrat";
+  margin-bottom: 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+`;
 
 const Wrapper = styled.div`
-padding: 15px 20px;
-display: flex;
-justify-content: space-around;
-align-items: center;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const Left = styled.div`
+  flex: 1;
+`;
+const Centre = styled.div`
+  flex: 1;
+  display: flex;
+  align-item: centre;
+  justify-content: center;
+`;
+const Right = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
 
-`
-const Left = styled.div`flex: 1;`
-const Centre = styled.div`flex: 1; display: flex; align-item: centre; justify-content: center`
-const Right = styled.div`flex: 1; display: flex; justify-content: flex-end; align-items: center`
+const BrandLogo = styled.h1`
+  font-weight: 600;
+  font-family: "Montserrat";
+  font-size: 20px;
+`;
 
-const BrandLogo = styled.h1`font-weight: 600; font-family: 'Montserrat'; font-size: 20px`
+const LocationContainer = styled.div`
+  display: flex;
+`;
 
-const LocationContainer = styled.div`display: flex;`
-
-const Location = styled.span`display: flex; align-items: center;`
+const Location = styled.span`
+  display: flex;
+  align-items: center;
+`;
 
 const SearchLocation = styled.div`
-padding: 0 10px;
-border-radius: 2px;
-display: flex;
-margin-left: 15px;
-height: 40px;
-align-items: center;
-flex: 1;
-background-color: #fafafa`
+  padding: 0 10px;
+  border-radius: 2px;
+  display: flex;
+  margin-left: 15px;
+  height: 40px;
+  align-items: center;
+  flex: 1;
+  background-color: #fafafa;
+`;
 
-const Input = styled.input`border: none; outline:none; font-family: 'Montserrat'; width: 180px; background-color: #fafafa`;
+const Input = styled.input`
+  border: none;
+  outline: none;
+  font-family: "Montserrat";
+  width: 180px;
+  background-color: #fafafa;
+`;
 
-const H3F = styled.h3` 
-font-size: 12px; 
-color: gray;
-font-weight: 500;
-`
+const H3F = styled.h3`
+  font-size: 12px;
+  color: gray;
+  font-weight: 500;
+`;
 
-const MenuItem = styled.div`font-size: 14px; margin: 15px; font-weight: 500; cursor: pointer`;
-
+const MenuItem = styled.div`
+  font-size: 14px;
+  margin: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #000;
+`;
 
 const Navbar = () => {
-    const qty = useSelector(state=>state.carts.cartItems.length);
+  const qty = useSelector((state) => state.carts.cartItems.length);
 
   return (
     <Container>
-        <Wrapper>
-        <Link to={'/'} style={{textDecoration: "none", color: "black"}}><Left><BrandLogo>My Logo</BrandLogo></Left></Link>
-            <Centre>
-                <LocationContainer>
-                    <Location>
-                        <H3F>Delivery to</H3F>
-                        <LocationOnOutlined/>
-                    </Location>
-                    <SearchLocation>
-                        <Input placeholder='What are you looking for?'/>
-                        <Search style={{color: "gray"}}/>
-                    </SearchLocation>
-                </LocationContainer>
-            </Centre>
-            <Right>
-                <MenuItem>Sign In</MenuItem>
-                <MenuItem>Register</MenuItem>
-                <Link to={'/cart'} style={{textDecoration: "none", color: "black"}}>
-                    <MenuItem>Cart <Badge badgeContent={qty} color='primary'><ShoppingBagOutlined/></Badge></MenuItem>
-                </Link>
-            </Right>
-        </Wrapper>
+      <Wrapper>
+        <Left>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <BrandLogo>My Logo</BrandLogo>
+          </Link>
+        </Left>
+        <Centre>
+          <LocationContainer>
+            <Location>
+              <H3F>Delivery to</H3F>
+              <LocationOnOutlined />
+            </Location>
+            <SearchLocation>
+              <Input placeholder="What are you looking for?" />
+              <Search style={{ color: "gray" }} />
+            </SearchLocation>
+          </LocationContainer>
+        </Centre>
+        <Right>
+          <Link to={'/products'} state={'Pizza'} style={{textDecoration: "none"}}><MenuItem>Menu</MenuItem></Link>
+          <MenuItem>Sign In</MenuItem>
+          <Link to={"/cart"} style={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>
+              Cart{" "}
+              <Badge badgeContent={qty} color="primary">
+                <ShoppingBagOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
+        </Right>
+      </Wrapper>
     </Container>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
