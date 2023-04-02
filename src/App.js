@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import Product from "./pages/Product";
-import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,6 +13,8 @@ function App() {
           <Route path="/" exact element={<Home />}/>
           <Route path="/products" exact element={<Product />} />
           <Route path="/cart" exact element={<Cart />} />
+          <Route path="/signin" exact element={<Login />} />
+          <Route path="/signup" exact element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>

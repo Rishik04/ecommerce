@@ -9,6 +9,56 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+
+const Navbar = () => {
+  const state = useSelector((state) => state);
+  const cart = state.carts.cartItems.length;
+  const user = state.users?.users;
+
+  console.log(user)
+  
+
+  return (
+    <Container>
+      <Wrapper>
+        <Left>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <BrandLogo>My Logo</BrandLogo>
+          </Link>
+        </Left>
+        <Centre>
+          <LocationContainer>
+            <Location>
+              <H3F>Delivery to</H3F>
+              <LocationOnOutlined />
+            </Location>
+            <SearchLocation>
+              <Input placeholder="What are you looking for?" />
+              <Search style={{ color: "gray" }} />
+            </SearchLocation>
+          </LocationContainer>
+        </Centre>
+        <Right>
+          <Link to={'/products'} state={'Pizza'} style={{textDecoration: "none"}}><MenuItem>Menu</MenuItem></Link>
+          {(user) ? ( <Link to={'/profile'} style={{ textDecoration: "none", color: "black" }}><MenuItem>{user.name}</MenuItem></Link>) : 
+          <Link to={'/signin'} style={{textDecoration: "none"}}><MenuItem>Sign In</MenuItem></Link>}
+          <Link to={"/cart"} style={{ textDecoration: "none", color: "black" }}>
+            <MenuItem>
+              Cart{" "}
+              <Badge badgeContent={cart} color="primary">
+                <ShoppingBagOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
+        </Right>
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default Navbar;
+
+
 const Container = styled.div`
   height: 80px;
   box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
@@ -90,44 +140,3 @@ const MenuItem = styled.div`
   color: #000;
 `;
 
-const Navbar = () => {
-  const qty = useSelector((state) => state.carts.cartItems.length);
-
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-            <BrandLogo>My Logo</BrandLogo>
-          </Link>
-        </Left>
-        <Centre>
-          <LocationContainer>
-            <Location>
-              <H3F>Delivery to</H3F>
-              <LocationOnOutlined />
-            </Location>
-            <SearchLocation>
-              <Input placeholder="What are you looking for?" />
-              <Search style={{ color: "gray" }} />
-            </SearchLocation>
-          </LocationContainer>
-        </Centre>
-        <Right>
-          <Link to={'/products'} state={'Pizza'} style={{textDecoration: "none"}}><MenuItem>Menu</MenuItem></Link>
-          <MenuItem>Sign In</MenuItem>
-          <Link to={"/cart"} style={{ textDecoration: "none", color: "black" }}>
-            <MenuItem>
-              Cart{" "}
-              <Badge badgeContent={qty} color="primary">
-                <ShoppingBagOutlined />
-              </Badge>
-            </MenuItem>
-          </Link>
-        </Right>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default Navbar;

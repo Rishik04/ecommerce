@@ -1,32 +1,39 @@
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { UserLogin } from "../redux/actions/user";
+import { UserRegister } from "../redux/actions/user";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Login = () => {
+const Register = () => {
+
+  const getState = useSelector(state=>state.users);
+
   const dispatch = useDispatch();
-  const getState = useSelector((state) => state.users);
-  const user = getState?.users;
-  const navigate = useNavigate();
+
+  let id;
 
   useEffect(()=>{
     if(getState.message!=='')
       toast(getState.message);
-
-    if(Object.keys(user).length!==0){
-      navigate('/')
-    }
-  },[getState, user])
+  },[getState])
 
   const schema = yup.object().shape({
+    name: yup.string().required("Name is required"),
     email: yup.string().required("Email is required").email(),
+    number: yup
+      .number()
+      .integer()
+      .required("Number is required")
+      .test("regex", "Enter a valid number", (val) => {
+        let regExp = new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/);
+        return regExp.test(val);
+      }),
     password: yup.string().required("Password is required"),
   });
 
@@ -39,8 +46,9 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(UserLogin(data));
+    dispatch(UserRegister(data));
   };
+
 
   return (
     <Container>
@@ -53,9 +61,19 @@ const Login = () => {
           </Left>
 
           <Right>
-            <Title>Login</Title>
+            <Title>Register</Title>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
+              <InputContainer>
+                <Label>Name:</Label>
+                <Input
+                  placeholder="Name"
+                  {...register("name", { required: true })}
+                  type="text"
+                />
+                {errors?.name?.message && <p>{errors?.name?.message}</p>}
+              </InputContainer>
+
               <InputContainer>
                 <Label>Email:</Label>
                 <Input
@@ -78,14 +96,22 @@ const Login = () => {
                 )}
               </InputContainer>
 
+              <InputContainer>
+                <Label>Number:</Label>
+                <Input
+                  placeholder="Number"
+                  {...register("number", { required: true })}
+                  type="tel"
+                />
+                {errors?.number?.message && <p>{errors?.number?.message}</p>}
+              </InputContainer>
               <ButtonContainer>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Register</Button>
               </ButtonContainer>
             </Form>
-
             <ButtonContainer>
-              <Link to={"/signup"}>
-                <RegisterLink>Don't have account? click here</RegisterLink>
+              <Link to={"/signin"}>
+                <RegisterLink>Already have account? click here</RegisterLink>
               </Link>
             </ButtonContainer>
             <ToastContainer
@@ -107,7 +133,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
 const Container = styled.div`
   min-height: 100vh;
@@ -222,7 +248,7 @@ const Form = styled.form`
 const RegisterLink = styled.p`
   color: blue;
   text-decoration: underline;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-size: 14px;
   font-weight: 400;
   margin: 0;

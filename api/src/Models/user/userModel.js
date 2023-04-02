@@ -5,23 +5,26 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    mobile:[{
+    number:[{
         type: Number,
         required: true
     }],
+    email:{
+        type: String,
+        required: true
+    },
+    password:{
+        type: String,
+        required: true
+    },
     address:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'addressess'
     }],
 
-    payment:[{
+    cardNumber:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cards'
-    }],
-
-    cart:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'carts'
     }],
     order:[{
         type: mongoose.Schema.Types.ObjectId,

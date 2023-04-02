@@ -72,6 +72,7 @@ const Discount = styled.span`
 
 export const Skeleton = () => {
     const COUNTER = 5;
+    let key = 5;
     const ProductSkeleton = ()=>(
     <Container>
       <Wrapper>

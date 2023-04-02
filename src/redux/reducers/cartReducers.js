@@ -1,4 +1,4 @@
-import { ADD_QUANTITY, ADD_TO_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
+import { ADD_TO_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
 
 const initialState = {
     cartItems: [],
