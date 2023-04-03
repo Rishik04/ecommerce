@@ -1,17 +1,22 @@
 import { CurrencyRupeeOutlined } from "@mui/icons-material";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const PriceSideBar = ({Total}) => {
-
-
-  console.log(Total)
+const PriceSideBar = ({ Total }) => {
   const baseFare = 15;
 
-  let shipping = (Math.round((baseFare +(Total/100)*2)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2).toFixed(2);
-  let tax = (Math.round(((Total/100)*18)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2).toFixed(2);
+  let shipping =
+    Math.round((baseFare + (Total / 100) * 2) * Math.pow(10, 2)).toFixed(1) /
+    Math.pow(10, 2).toFixed(2);
+  let tax =
+    Math.round((Total / 100) * 18 * Math.pow(10, 2)).toFixed(1) /
+    Math.pow(10, 2).toFixed(2);
 
-  let total = (Math.round(((Total+shipping+tax)*Math.pow(10,2)).toFixed(1))/Math.pow(10,2)).toFixed(2);
+  let total = (
+    Math.round(((Total + shipping + tax) * Math.pow(10, 2)).toFixed(1)) /
+    Math.pow(10, 2)
+  ).toFixed(2);
 
   return (
     <Container>
@@ -44,7 +49,7 @@ const PriceSideBar = ({Total}) => {
 
           <hr style={{ opacity: 0.5 }} />
 
-          <ProductSec>
+          <ProductSec style={{ background: "#eeeeee" }}>
             <SubTotal>TOTAL PRICE</SubTotal>
             <Price>
               <CurrencyRupeeOutlined style={{ fontSize: 18 }} />
@@ -53,7 +58,12 @@ const PriceSideBar = ({Total}) => {
           </ProductSec>
 
           <ButtonContainer>
-            <Button>PROCEED TO CHECKOUT</Button>
+            <Link
+              to={"/payment"}
+              style={{ textDecoration: "none" }}
+            >
+              <Button>PROCEED TO CHECKOUT</Button>
+            </Link>
           </ButtonContainer>
         </Card>
         <Image src="assets/sideBar.png" />
@@ -75,9 +85,9 @@ const Card = styled.div`
 const Title = styled.h1`
   margin: 20px auto;
 
-  &:after{
+  &:after {
     display: block;
-    content: '';
+    content: "";
     position: absolute;
     width: 40%;
     height: 2.5px;
@@ -93,6 +103,7 @@ const ProductSec = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 5px;
 `;
 const SubTotal = styled.p`
   color: gray;
@@ -112,9 +123,8 @@ const Price = styled.span`
 const Wrapper = styled.div``;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
   margin: 30px auto;
+  width: 100%;
 `;
 
 const Button = styled.button`
@@ -127,4 +137,5 @@ const Button = styled.button`
   font-size: 18px;
   font-weight: 500;
   font-family: "Montserrat";
+  cursor: pointer;
 `;

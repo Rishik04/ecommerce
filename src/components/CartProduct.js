@@ -49,7 +49,7 @@ const CartProduct = () => {
                   </Quantity>
                   <HeadTitle>QUANTITY</HeadTitle>
                   <HeadTitle>FINAL PRICE</HeadTitle>
-                  <HeadTitle>Remove</HeadTitle>
+                  <HeadTitle>REMOVE</HeadTitle>
                 </Right>
               </CartHeading>
 
@@ -168,7 +168,7 @@ const Container = styled.div`
   align-items: center;
 `;
 const Card = styled.div`
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
   background: #fff;
   border-radius: 5px;
   display: flex;

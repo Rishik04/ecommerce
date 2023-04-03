@@ -14,10 +14,7 @@ const Navbar = () => {
   const state = useSelector((state) => state);
   const cart = state.carts.cartItems.length;
   const user = state.users?.users;
-
-  console.log(user)
   
-
   return (
     <Container>
       <Wrapper>
