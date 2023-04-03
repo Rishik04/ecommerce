@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import PriceSideBar from "./PriceSideBar";
@@ -30,31 +29,114 @@ const CartProduct = () => {
     dispatch(deleteItem(item));
   };
 
-  console.log(getState);
+  let TotalPrice = 0;
 
   return (
     <Container>
       <ProductContainer>
-        {getState.cartItems.length === 0
-          ? <ErrorProd type={"emptyCart"} error={"Oops! your cart is empty."}/>
-          : getState.cartItems.map((item) => (
-              <Card key={item._id}>
+        {getState.cartItems.length === 0 ? (
+          <ErrorProd type={"emptyCart"} error={"Oops! your cart is empty."} />
+        ) : (
+          <SideBarContainer>
+            <div>
+              <CartHeading>
                 <Left>
-                  <ImageContainer>
-                    <Image src={item.img} />
-                  </ImageContainer>
-                  <Description>
-                    <Title>{item.title}</Title>
-                    <Type>{item.type}</Type>
-                  </Description>
+                  <HeadTitle>ITEM</HeadTitle>
                 </Left>
                 <Right>
                   <Quantity>
-                    {item.qty === 1 ? (
+                    <HeadTitle>UNIT PRICE</HeadTitle>
+                  </Quantity>
+                  <HeadTitle>QUANTITY</HeadTitle>
+                  <HeadTitle>FINAL PRICE</HeadTitle>
+                  <HeadTitle>REMOVE</HeadTitle>
+                </Right>
+              </CartHeading>
+
+              {getState.cartItems.map((item) => {
+                TotalPrice += item.qty * item.price;
+                return (
+                  <Card key={item._id}>
+                    <Left>
+                      <ImageContainer>
+                        <Image src={item.img} />
+                      </ImageContainer>
+                      <Description>
+                        <Title>{item.title}</Title>
+                        <Type>{item.type}</Type>
+                      </Description>
+                    </Left>
+
+                    <Right>
+                      <PriceContainer>
+                        <CurrencyRupeeOutlined
+                          style={{
+                            fontSize: 16,
+                            display: "flex",
+                            alignItems: "center",
+                            fontWeight: 600,
+                          }}
+                        />
+                        <Price>{item.price}</Price>
+                      </PriceContainer>
+
+                      <Quantity>
+                        {item.qty === 1 ? (
+                          <DeleteOutline
+                            style={{
+                              fontSize: "medium",
+                              margin: "1",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: 5,
+                            }}
+                            onClick={() => deleteItems(item)}
+                          />
+                        ) : (
+                          <Remove
+                            style={{
+                              margin: "1",
+                              fontSize: "medium",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              padding: 5,
+                            }}
+                            onClick={() => handleDecQuantity(item)}
+                          />
+                        )}
+                        <InputField value={item.qty} disabled />
+                        <Add
+                          style={{
+                            margin: "1",
+                            fontSize: "medium",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: 5,
+                          }}
+                          onClick={() => handleIncQuantity(item)}
+                        />
+                      </Quantity>
+
+                      <PriceContainer>
+                        <CurrencyRupeeOutlined
+                          style={{
+                            fontSize: "16",
+                            display: "flex",
+                            alignItems: "center",
+                            fontWeight: 600,
+                          }}
+                        />
+                        <Price>{item.price * item.qty}</Price>
+                      </PriceContainer>
+
                       <DeleteOutline
                         style={{
-                          fontSize: "medium",
-                          margin: 'auto',
                           cursor: "pointer",
                           display: "flex",
                           alignItems: "center",
@@ -63,62 +145,16 @@ const CartProduct = () => {
                         }}
                         onClick={() => deleteItems(item)}
                       />
-                    ) : (
-                      <Remove
-                        style={{
-                          margin: "auto",
-                          fontSize: "medium",
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          padding: 5,
-                        }}
-                        onClick={() => handleDecQuantity(item)}
-                      />
-                    )}
-                    <InputField value={item.qty} disabled />
-                    <Add
-                      style={{
-                        margin: "auto",
-                        fontSize: "medium",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: 5,
-                      }}
-                      onClick={() => handleIncQuantity(item)}
-                    />
-                  </Quantity>
+                    </Right>
+                  </Card>
+                );
+              })}
+            </div>
 
-                  <PriceContainer>
-                    <CurrencyRupeeOutlined
-                      style={{
-                        fontize: 18,
-                        display: "flex",
-                        alignItems: "center",
-                        fontWeight: 600,
-                      }}
-                    />
-                    <Price>{item.price}</Price>
-                  </PriceContainer>
-
-                  <DeleteOutline
-                    style={{
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      padding: 5,
-                    }}
-                    onClick={() => deleteItems(item)}
-                  />
-                </Right>
-              </Card>
-            ))}
+            <PriceSideBar Total={TotalPrice} />
+          </SideBarContainer>
+        )}
       </ProductContainer>
-      <PriceSideBar /> 
     </Container>
   );
 };
@@ -132,8 +168,8 @@ const Container = styled.div`
   align-items: center;
 `;
 const Card = styled.div`
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
-  background: white;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -143,14 +179,14 @@ const Card = styled.div`
   width: 60vw;
 `;
 const Title = styled.h3`
-    margin: 5px 0;
+  margin: 5px 0;
 `;
 
 const Type = styled.p`
-  font-family: "Lora";
+  font-family: "Montserrat";
   color: gray;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
   padding: 0;
   margin: 5px 0;
 `;
@@ -158,7 +194,6 @@ const Type = styled.p`
 const Quantity = styled.div`
   display: flex;
   align-items: center;
-  width: 100px;
 `;
 
 const ImageContainer = styled.div`
@@ -178,7 +213,7 @@ const PriceContainer = styled.div`
 const Price = styled.span`
   font-family: "Montserrat";
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
 `;
 
 const ProductContainer = styled.div`
@@ -213,3 +248,23 @@ const InputField = styled.input`
   font-weight: 500;
   text-align: center;
 `;
+
+const SideBarContainer = styled.div`
+  display: flex;
+`;
+
+const CartHeading = styled.div`
+  display: flex;
+  margin: 5px 0;
+  padding: 2px 15px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeadTitle = styled.p`
+color: gray;
+font-family: 'Montserrat';
+font-size: 10px;
+font-weight: 500;
+margin: 0;
+`

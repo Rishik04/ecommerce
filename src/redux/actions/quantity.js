@@ -1,4 +1,4 @@
-import { ADD_QUANTITY, ADD_TO_CART, DELETE_ITEM, ERROR, REMOVE_QUANTITY } from "./types"
+import { ADD_TO_CART, DELETE_ITEM, ERROR, REMOVE_QUANTITY } from "./types"
 
 export const addQuantity = (products)=>async (dispatch, getState)=>{
     const addQty = {...products, qty:1}

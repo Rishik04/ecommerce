@@ -49,8 +49,8 @@ const CategoryProducts = () => {
           Browse Our <br />
           <span style={{ color: "darkorange" }}>Hottest</span> Categories
         </Title>
-        <Link to={'products'} state={'Pizza'}>
-        <Button>
+        <Link to={'products'} state={'Pizza'} style={{textDecoration: 'none'}}>
+        <Button type="button" style={{cursor: "pointer"}}>
           See All{" "}
           <EastOutlined
             style={{

@@ -1,4 +1,4 @@
-import {FETCH_PRODUCTS, ERROR, SUCCESS, FETCH_SUCCESS, ADD_QUANTITY} from '../actions/types'
+import {FETCH_PRODUCTS, ERROR, FETCH_SUCCESS} from '../actions/types'
 const initialState = {
     data:[],
     loading:true
