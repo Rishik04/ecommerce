@@ -37,7 +37,7 @@ const Navbar = () => {
         </Centre>
         <Right>
           <Link to={'/products'} state={'Pizza'} style={{textDecoration: "none"}}><MenuItem>Menu</MenuItem></Link>
-          {(user) ? ( <Link to={'/profile'} style={{ textDecoration: "none", color: "black" }}><MenuItem>{user.name}</MenuItem></Link>) : 
+          {Object.keys(user).length!==0 ? ( <Link to={'/profile/orders'} style={{ textDecoration: "none", color: "black" }}><MenuItem>{user.name}</MenuItem></Link>) : 
           <Link to={'/signin'} style={{textDecoration: "none"}}><MenuItem>Sign In</MenuItem></Link>}
           <Link to={"/cart"} style={{ textDecoration: "none", color: "black" }}>
             <MenuItem>

@@ -29,6 +29,7 @@ const CartProduct = () => {
     dispatch(deleteItem(item));
   };
 
+
   let TotalPrice = 0;
 
   return (
@@ -151,7 +152,7 @@ const CartProduct = () => {
               })}
             </div>
 
-            <PriceSideBar Total={TotalPrice} />
+            <PriceSideBar Total={TotalPrice} pathName = {'/shipping'} button={"PROCEED TO CHECKOUT"}/>
           </SideBarContainer>
         )}
       </ProductContainer>
