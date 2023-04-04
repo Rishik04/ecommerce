@@ -17,6 +17,7 @@ const PriceSideBar = ({ Total, pathName, button }) => {
     Math.round(((Total + shipping + tax) * Math.pow(10, 2)).toFixed(1)) /
     Math.pow(10, 2)
   ).toFixed(2);
+  
 
   return (
     <Container>

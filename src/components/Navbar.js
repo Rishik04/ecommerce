@@ -61,10 +61,10 @@ const Container = styled.div`
   box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
   background-color: white;
   font-family: "Montserrat";
-  margin-bottom: 10px;
   position: fixed;
   width: 100%;
   z-index: 1000;
+  top: 0;
 `;
 
 const Wrapper = styled.div`
