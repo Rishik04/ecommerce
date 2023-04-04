@@ -51,10 +51,11 @@ const login = async (req, res) => {
         process.env.HASH_KEY
       ).toString(Crypto.enc.Utf8);
       if (decPassword === password) {
+        const data = await userList.populate('address');
         successResponse(
           res,
           "Login Successfull",
-          userList.populate("address"),
+          data,
           200
         );
       } else {
@@ -66,31 +67,7 @@ const login = async (req, res) => {
   }
 };
 
-const addAddress = async (req, res) => {
-  try {
-    console.log(req.body);
-
-    const { id } = req.body;
-
-    const address = await new addressModel(req.body).save();
-    if (address) {
-      await userModel.findOneAndUpdate(
-        { _id: id },
-        { $push: { address: address._id } }
-      );
-    }
-    if (address) {
-      successResponse(res, "Successfully added", address, 200);
-    } else {
-      errorResponse(res, "AddressError", "Unable to add address", 400);
-    }
-  } catch (err) {
-    errorResponse(res, err.name, err.message, 400);
-  }
-};
-
 module.exports = {
   login,
   register,
-  addAddress,
 };

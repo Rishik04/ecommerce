@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose');
+const {model, Schema, default: mongoose} = require('mongoose');
 
 const addressSchema = new Schema({
     street:{
@@ -17,8 +17,16 @@ const addressSchema = new Schema({
         type: Number,
         required: true
     },
+    city:{
+        type: String, 
+        required: true
+    },
     state:{
         type: String,
+        required: true
+    },
+    uId:{
+        type: mongoose.Types.ObjectId,
         required: true
     }
 });

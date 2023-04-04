@@ -9,7 +9,6 @@ const Container = styled.div`
   background: #f8f6f3;
 `;
 const Wrapper = styled.div`margin: 0 60px`;
-const ButtonContainer = styled.div``;
 const Title = styled.h1`
   margin: 0;
   padding: 0;

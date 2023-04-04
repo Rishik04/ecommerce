@@ -1,25 +1,28 @@
-import { ADDRESS_ERROR, ADDRESS_REQUEST, ADDRESS_SUCCESS, INIT_APP } from "../actions/types"
+import { ADDRESS_ERROR, ADDRESS_REQUEST, ADDRESS_SUCCESS, GET_ADDRESS_ERROR, GET_ADDRESS_SUCCESS, SELECT_ADDRESS_REQUEST, SELECT_ADDRESS_SUCCESS } from "../actions/types"
 
-const initialState = {address: []};
+const initialState = {address: [], selectedAddress:{}, loading: true};
 
 export const addressReducer = (state = initialState, action)=>{
     
     switch(action.type){
 
-        case ADDRESS_REQUEST: return state;
+        case ADDRESS_REQUEST: return {...state, loading:true};
 
         case ADDRESS_SUCCESS:
-        return {...state, address:[...state.address, action.payload.data]};
+        return {...state, address:[...state.address, action.payload.data], selectedAddress:action.payload.data[0], loading: false};
 
-        case ADDRESS_ERROR: return state;
+        case ADDRESS_ERROR: return {...state, loading: false};
 
-        case INIT_APP:
-            if(localStorage.getItem('address')){
-                return {...state, address:JSON.parse(localStorage.getItem('address'))}
-            }
-            else{
-                return state;
-            }
+        case GET_ADDRESS_SUCCESS: 
+        return {...state, address:[...action.payload.data], loading: false, selectedAddress:action.payload.data[0]};
+
+        case GET_ADDRESS_ERROR: return {...state, loading: false};
+
+        case SELECT_ADDRESS_REQUEST:return {...state, loading: true};
+
+        case SELECT_ADDRESS_SUCCESS: return{...state, selectedAddress:action.payload, loading: false}
+
+
 
         default: return state;
     }

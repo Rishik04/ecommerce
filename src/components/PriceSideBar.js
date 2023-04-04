@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const PriceSideBar = ({ Total }) => {
+const PriceSideBar = ({ Total, pathName, button }) => {
   const baseFare = 15;
 
   let shipping =
@@ -59,10 +59,10 @@ const PriceSideBar = ({ Total }) => {
 
           <ButtonContainer>
             <Link
-              to={"/payment"}
+              to={pathName}
               style={{ textDecoration: "none" }}
             >
-              <Button>PROCEED TO CHECKOUT</Button>
+              <Button>{button}</Button>
             </Link>
           </ButtonContainer>
         </Card>

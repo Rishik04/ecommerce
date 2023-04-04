@@ -1,38 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import AddAddress from "./AddAddress";
-import { ErrorProd } from "../skeleton/NotFound";
+import { useDispatch, useSelector } from "react-redux";
+import { ErrorProd, Spinner } from "../skeleton/NotFound";
+import { getAddress, selectAddress } from "../../redux/actions/userDetails";
 
 const Address = () => {
+  const user = useSelector((state) => state.users.users);
   const state = useSelector((state) => state.address);
+  const selectedAddress = useSelector(state=>state.address.selectedAddress);
   console.log(state);
+  const dispatch = useDispatch();
+    useEffect(() => {
+      if (user){
+        dispatch(getAddress(user._id))
+      }
+    }, []);
 
-  //   useEffect(() => {
-  //     if (Object.keys(state).length === 0) {
-  //       navigate("add-adress");
-  //     }
-  //   }, [navigate]);
+    const handleSelected = (e)=>{
+      dispatch(selectAddress(e))
+      // console.log(e)
+    }
 
   return (
     <Container>
       <Wrapper>
         <Card>
-          {state.address.length === 0 ? (
-            <ErrorProd type={"notFound"} />
-          ) : (
-            <AddressCard>
-              {state.address.map((i) => (
-                <AddressContainer>
+          {state.loading ? <Spinner /> : state.address.length === 0 ? (
+            <ErrorProd type={"notFound"} error={"No address found"}/>
+          ) : (<>
+              <Title>SAVED
+            <span style={{ color: "darkorange" }}> ADDRESS</span> </Title>
+                <AddressCard>
+              {
+               state.address.map((i) => {
+                return(
+                <AddressContainer id={i._id} style={selectedAddress._id === i._id ? {border: "2px solid darkorange"} : {}} onClick={()=>handleSelected(i)}>
                   <Street>{i.street}</Street>
                   <Street>{i.building}</Street>
                   <Street>{i.area}</Street>
+                  <Street>{i.city}</Street>
                   <Street>{i.pin}</Street>
                   <Street>{i.state}</Street>
+                  <ButtonContainer>
+                    <Button>Add</Button>
+                    <Button>Remove</Button>
+                  </ButtonContainer>
                 </AddressContainer>
-              ))}
-            </AddressCard>
+              )})}
+            </AddressCard></>
           )}
           <ButtonContainer>
             <Button>
@@ -73,7 +89,8 @@ const Title = styled.h2`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 5%;
+  margin-top: 10%;
+  gap: 10px;
 `;
 const Button = styled.button`
   color: #fff;
@@ -81,16 +98,17 @@ const Button = styled.button`
   border: none;
   outline: none;
   padding: 10px 20px;
-  width: 30%;
   font-family: "Montserrat";
   font-size: 16px;
+  width: 100%;
   font-weight: 500;
 `;
 
 const AddressContainer = styled.div`
-  border: 1px solid darkorange;
   min-width: 250px;
   padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+  cursor: pointer;
 `;
 const Street = styled.p`
   font-size: 15px;
@@ -104,4 +122,5 @@ const AddressCard = styled.div`
   padding: 10px;
   gap: 30px;
   justify-content: flex-start;
+  margin-top: 15px;
 `;

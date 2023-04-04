@@ -41,6 +41,10 @@ const AddAddress = () => {
                 <Input placeholder="Area name" {...register("area")} type="text"/>
               </InputContainer>
               <InputContainer>
+                <Label>City:-</Label>
+                <Input placeholder="City name" {...register("city")} type="text"/>
+              </InputContainer>
+              <InputContainer>
                 <Label>Pin:-</Label>
                 <Input placeholder="Area pin code" {...register("pin", {maxLength: 6})} type="number"/>
               </InputContainer>
@@ -72,6 +76,7 @@ const Wrapper = styled.div`
 const Card = styled.div`
   height: 100%;
   width: 100%;
+  background: #fff;
 `;
 const FormConatiner = styled.div`
   height: 100%;
