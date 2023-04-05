@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Payment from "./pages/Payment";
 import Shipping from "./pages/Shipping";
 import Order from "./pages/Order";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/profile/*" exact element={<Profile />} />
           <Route path="/payment" exact element={<Payment />} />
           <Route path="/shipping" exact element={<Shipping />} />
-          <Route path="/order" exact element={<Order />} />
+          <Route path="/order/*" exact element={<Order />} />
+          <Route path="/order/:id" exact element={<Orders />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,9 +1,10 @@
 import { CurrencyRupeeOutlined } from "@mui/icons-material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const PriceSideBar = ({ Total, pathName, button }) => {
+const PriceSideBar = ({ Total, pathName, button, handleButton }) => {
   const baseFare = 15;
 
   let shipping =
@@ -17,6 +18,18 @@ const PriceSideBar = ({ Total, pathName, button }) => {
     Math.round(((Total + shipping + tax) * Math.pow(10, 2)).toFixed(1)) /
     Math.pow(10, 2)
   ).toFixed(2);
+
+
+  const paymentMethod = useSelector((state) => state.order?.paymentMethod);
+
+const location = useLocation();
+
+const getPaymentButton = ()=>{
+  if(location.pathname === '/order' && paymentMethod === "RAZORPAY"){
+    return (<Button onClick={handleButton}><Image src="/assets/razorpay.svg"/></Button>);
+  }
+}
+
   
 
   return (
@@ -59,12 +72,15 @@ const PriceSideBar = ({ Total, pathName, button }) => {
           </ProductSec>
 
           <ButtonContainer>
+
+           { location.pathname === "/order" ? getPaymentButton():
             <Link
               to={pathName}
               style={{ textDecoration: "none" }}
             >
               <Button>{button}</Button>
             </Link>
+          }
           </ButtonContainer>
         </Card>
         <Image src="assets/sideBar.png" />

@@ -1,19 +1,136 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PriceSideBar from "../components/PriceSideBar";
 import { CurrencyRupeeOutlined } from "@mui/icons-material";
+import { createOrder, placeOrder } from "../redux/actions/orders";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
+  const user = useSelector((state) => state.users?.users);
   const cart = useSelector((state) => state.carts?.cartItems);
-
   const total = cart.reduce((x, y) => x + y.price * y.qty, 0);
-
-  const selectedAddress = useSelector((state) => state.address.selectedAddress);
-  const cartItems = useSelector((state) => state.carts.cartItems);
+  const selectedAddress = useSelector(
+    (state) => state.address?.selectedAddress
+  );
+  const orderId = useSelector(state=>state.orderDetails?.orders?._id)
+  const orderDetails = useSelector((state) => state.orderDetails?.orders);
   const paymentMethod = useSelector((state) => state.order?.paymentMethod);
+  const dispatch = useDispatch();
+  const baseFare = 15;
+  let shipping =
+    Math.round((baseFare + (total / 100) * 2) * Math.pow(10, 2)).toFixed(1) /
+    Math.pow(10, 2).toFixed(2);
+  let tax =
+    Math.round((total / 100) * 18 * Math.pow(10, 2)).toFixed(1) /
+    Math.pow(10, 2).toFixed(2);
+
+    const navigate = useNavigate();
+  // console.log(selectedAddress)
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const paymentSuccess = async (e) => {
+    const { razorpay_payment_id } = e;
+
+    dispatch(
+      placeOrder({
+        shipping: selectedAddress,
+        price: total,
+        tax: tax,
+        delivery: shipping,
+        item: cart,
+        uId: user._id,
+        paymentId: razorpay_payment_id,
+        paymentMethod: paymentMethod,
+      })
+    );
+    
+  };
+
+  useEffect(()=>{
+    if(orderId){
+      navigate(`/order/${orderId}`)
+    }
+  }, [orderId])
+
+  useEffect(() => {
+    if(Object.keys(user).length!==0 && Object.keys(cart).length!==0){
+
+      if (!orderDetails) {
+        dispatch(
+          createOrder({
+            selectedAddress: selectedAddress,
+            price: total,
+            tax: tax,
+            delivery: shipping,
+          })
+        );
+        console.log(orderDetails);
+      }
+    }
+    else{
+      navigate('/');
+    }
+  }, []);
+
+  const handlePayment = async () => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_bS3Zi5szu3Yesu", // Enter the Key ID generated from the Dashboard
+      amount: orderDetails.amount.toString(),
+      currency: orderDetails.currency,
+      name: "Delicacy",
+      description: "You are ordering the delicious items",
+      // image: { logo },
+      order_id: orderDetails.orderId,
+      handler: function (res) {
+        paymentSuccess(res);
+      },
+      prefill: {
+        name: user?.name,
+        email: user?.email,
+        contact: "9102367555",
+      },
+      notes: {
+        street: selectedAddress.street,
+        area: selectedAddress.area,
+        city: selectedAddress.city,
+        uId: selectedAddress.uId,
+      },
+      theme: {
+        color: "#61dafb",
+      },
+    };
+
+    // const {amount, id: order_id, currency} = result;
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
   return (
     <>
       <Navbar />
@@ -51,9 +168,12 @@ const Order = () => {
                       <Image src={item.img} />
                     </ProductImage>
                     <ProductInfo>
-                      <Street style={{fontSize: 18}}>{item.title}</Street>
+                      <Street style={{ fontSize: 18 }}>{item.title}</Street>
                       <Street>{item.category}</Street>
-                      <Street style={{display: "flex", alignItems: "center"}}><CurrencyRupeeOutlined style={{fontSize: 16}}/> {item.price}/-</Street>
+                      <Street style={{ display: "flex", alignItems: "center" }}>
+                        <CurrencyRupeeOutlined style={{ fontSize: 16 }} />{" "}
+                        {item.price}/-
+                      </Street>
                       <Street>{item.qty}</Street>
                       <Street>{item.type}</Street>
                     </ProductInfo>
@@ -65,14 +185,19 @@ const Order = () => {
                 <SubTitle>Payment Method</SubTitle>
                 <AddressInfo>
                   <ProductInfo>
-                    <Input type="radio" checked disabled/>
+                    <Input type="radio" checked disabled />
                   </ProductInfo>
                   <Street>{paymentMethod}</Street>
                 </AddressInfo>
               </OrderSummary>
             </Card>
           </Orders>
-          <PriceSideBar pathName={"/order"} button={"PAY"} Total={total} />
+          <PriceSideBar
+            pathName={"/order"}
+            button={"PAY"}
+            Total={total}
+            handleButton={() => handlePayment()}
+          />
         </Wrapper>
       </Container>
 
@@ -164,7 +289,7 @@ const AddressInfo = styled.div`
   background: #fef4ea;
   align-items: center;
   margin: 5px 0;
-  width: 100%
+  width: 100%;
 `;
 const Street = styled.p`
   margin: 8px;
@@ -174,5 +299,9 @@ const Street = styled.p`
   font-size: 15px;
 `;
 
-const ProductImage = styled.div`flex: 1`;
-const ProductInfo = styled.div`flex: 1`;
+const ProductImage = styled.div`
+  flex: 1;
+`;
+const ProductInfo = styled.div`
+  flex: 1;
+`;
