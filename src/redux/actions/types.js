@@ -27,3 +27,4 @@ export const ORDER_ERROR = "ORDER_ERROR";
 export const ORDER_SUCCESS = "ORDER_SUCCESS";
 export const DELETE_CART = "DELETE_CART";
 export const GET_ORDER_REQ = "GET_ORDER_REQ";
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";

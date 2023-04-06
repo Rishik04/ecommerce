@@ -123,4 +123,5 @@ const AddressCard = styled.div`
   gap: 30px;
   justify-content: flex-start;
   margin-top: 15px;
+  flex-wrap: wrap;
 `;

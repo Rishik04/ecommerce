@@ -3,6 +3,7 @@ import {
     LOGIN_ERROR,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_REQUEST,
   REGISTER_ERROR,
   REGISTER_REQ,
   REGISTER_SUCCESS,
@@ -33,6 +34,9 @@ export const userReducer = (state = initialState, action) => {
 
     case REGISTER_ERROR:
       return {...state, message: action.payload.message, loading: false};
+
+    case LOGOUT_REQUEST:
+      return {...state, users: {}}
 
     case INIT_APP:
     if(localStorage.getItem('user')){
