@@ -1,21 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { CurrencyRupeeOutlined } from "@mui/icons-material";
-import Address from "../components/ProfileComponents/Address";
 import PriceSideBar from "../components/PriceSideBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addPayment } from "../redux/actions/orders";
 
 const Payment = () => {
-  const [active, setActive] = useState("");
+
+  const dispatch = useDispatch();
 
   const selectPayment = (data) => {
-    if (data.target.value === "cod") {
-      setActive("cod");
-    } else if (data.target.value === "razorpay") {
-      setActive("razorpay");
-    }
+    dispatch(addPayment(data.target.value))
   };
   const cart = useSelector((state) => state.carts?.cartItems);
 
@@ -40,7 +36,7 @@ const Payment = () => {
                   <Input
                     type="radio"
                     name="payment"
-                    value={"razorpay"}
+                    value={"RAZORPAY"}
                     onClick={(e) => selectPayment(e)}
                   />
                   <Label>RAZORPAY</Label>
@@ -56,7 +52,7 @@ const Payment = () => {
                   <Input
                     type="radio"
                     name="payment"
-                    value={"cod"}
+                    value={"COD"}
                     onClick={(e) => selectPayment(e)}
                   />
                   <Label>CASH ON DELIVERY</Label>
@@ -93,7 +89,6 @@ const Wrapper = styled.div`
   width: 100%;
   gap: 10px;
 `;
-const PaymentDetails = styled.div``;
 const PaymentHeader = styled.div``;
 const PaymentMethods = styled.div`
   width: 100vw;
@@ -123,11 +118,6 @@ const PaymentOptions = styled.div`
 const Title = styled.h1`
   font-size: 50px;
   margin: 0;
-`;
-const SubTitle = styled.h3`
-  font-size: 25px;
-  display: flex;
-  align-items: center;
 `;
 
 const Input = styled.input`

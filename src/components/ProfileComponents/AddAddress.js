@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 const AddAddress = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const state = useSelector(state=>state.users.users);
+  const user = useSelector(state=>state.users.users);
+  const navigate = useNavigate();
+
 
   const onSubmit = (data) => {
-    dispatch(addAddress({...data, id: state._id}));
+    dispatch(addAddress({...data, uId: user._id}));
   };
-
-  const navigate = useNavigate()
 
   return (
     <Container>
@@ -140,6 +140,7 @@ const Button = styled.button`
   font-family: "Montserrat";
   font-size: 16px;
   font-weight: 500;
+  cursor: pointer
 `;
 
 const TopHeader = styled.div`display: flex; align-items: center;`

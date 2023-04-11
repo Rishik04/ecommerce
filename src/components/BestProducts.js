@@ -7,11 +7,9 @@ import {
   Remove,
   ShoppingBagOutlined,
 } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Badge } from '@mui/material'
-import { useDispatch, useSelector } from "react-redux";
-import {addQuantity} from '../redux/actions/quantity'
 
 const ProductCard = styled.div`
   display: flex;
@@ -134,7 +132,7 @@ const Cart = styled.div`
 const BestProducts = (props)=> {
 
   const {_id, discount, price, title, type, category, img} = props.product;
-  const qtys = (props.cart.cartItems.length!=0) ? props.cart.cartItems.filter(x => x._id === _id)[0] : 0;
+  const qtys = (props.cart.cartItems.length!==0) ? props.cart.cartItems.filter(x => x._id === _id)[0] : 0;
   const qty = qtys ? qtys.qty : 0
 
 
@@ -184,7 +182,7 @@ const BestProducts = (props)=> {
                 <CartToggle>
                   {/* Remove Product From Cart */}
                 
-                {qty == 1 ?
+                {qty === 1 ?
                   <DeleteOutlined style={{
                     margin: "auto",
                     fontSize: "medium",

@@ -1,6 +1,5 @@
 import React from 'react'
 import About from '../components/About'
-import BestProductItems from '../components/BestProductItems'
 import Category from '../components/Category'
 import CategoryProducts from '../components/CategoryProducts'
 import Footer from '../components/Footer'

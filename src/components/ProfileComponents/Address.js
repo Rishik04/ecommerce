@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorProd, Spinner } from "../skeleton/NotFound";
 import { getAddress, selectAddress } from "../../redux/actions/userDetails";
@@ -15,7 +15,7 @@ const Address = () => {
       if (user){
         dispatch(getAddress(user._id))
       }
-    }, []);
+    });
 
     const handleSelected = (e)=>{
       dispatch(selectAddress(e))
@@ -123,4 +123,5 @@ const AddressCard = styled.div`
   gap: 30px;
   justify-content: flex-start;
   margin-top: 15px;
+  flex-wrap: wrap;
 `;

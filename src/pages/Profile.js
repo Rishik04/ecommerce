@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import Address from "../components/ProfileComponents/Address";
 import Payments from "../components/ProfileComponents/Payments";
 import WishList from "../components/ProfileComponents/WishList";
 import AddAddress from "../components/ProfileComponents/AddAddress";
+import { Logout } from "../redux/actions/userAuth";
 
 const Profile = () => {
   const user = useSelector((state) => state.users);
@@ -19,6 +20,8 @@ const Profile = () => {
       navigate("/signin");
     }
   }, [navigate]);
+
+  const dispatch = useDispatch();
 
 
   return (
@@ -76,6 +79,13 @@ const Profile = () => {
                     >
                       Favourites
                     </NavLink>
+                  </MenuItems>
+                  <MenuItems>
+                  <ButtonContainer>
+                    <Button onClick={()=>dispatch(Logout())}>
+                      LOGOUT
+                    </Button>
+                  </ButtonContainer>
                   </MenuItems>
                 </Menu>
               </LeftSideBar>
@@ -160,6 +170,9 @@ const Button = styled.button`
   color: darkorange;
   font-weight: 500;
   font-family: "Montserrat";
+  background: darkorange;
+  cursor: pointer;
+  color: #fff;
 `;
 
 const LeftSideBar = styled.div`

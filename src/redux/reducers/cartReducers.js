@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
+import { ADD_TO_CART, DELETE_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
 
 const initialState = {
     cartItems: [],
@@ -31,6 +31,9 @@ export const cartReducer = (state = initialState, action)=>{
 
         case DELETE_ITEM:
             return {...state, cartItems:state.cartItems.filter(x=>x._id !== action.payload._id)}
+
+        case DELETE_CART:
+            return {...state, cartItems:[]};
 
         case INIT_APP:
             if(localStorage.getItem('cartItem')){

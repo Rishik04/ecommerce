@@ -1,14 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import BestProductItems from "../components/BestProductItems";
-import BestProducts from "../components/BestProducts";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ProductSlider from "../components/ProductSlider";
-import { getProductsById } from "../redux/actions";
 
 const Container = styled.div`
   background: #f9f9f9;

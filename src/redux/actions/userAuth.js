@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN_REQUEST } from "./types";
+import { LOGIN_REQUEST, LOGOUT_REQUEST } from "./types";
 import { LOGIN_ERROR, REGISTER_ERROR, REGISTER_REQ, REGISTER_SUCCESS, LOGIN_SUCCESS, } from "./types"
 
 export const UserRegister = (user) => async (dispatch, getState)=>{
@@ -37,4 +37,9 @@ export const UserLogin = (user) => async (dispatch, getState)=>{
     catch(err){
         dispatch({type: LOGIN_ERROR, payload:err});
     }
+}
+
+export const Logout = () => async (dispatch)=>{
+    dispatch({type: LOGOUT_REQUEST, payload: {}});
+    localStorage.removeItem('user');
 }

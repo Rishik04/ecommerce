@@ -61,10 +61,10 @@ const Container = styled.div`
   box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
   background-color: white;
   font-family: "Montserrat";
-  margin-bottom: 10px;
   position: fixed;
   width: 100%;
   z-index: 1000;
+  top: 0;
 `;
 
 const Wrapper = styled.div`
@@ -72,6 +72,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  @media (max-width: 768px){
+    justify-content: space-between;
+  }
 `;
 const Left = styled.div`
   flex: 1;
@@ -81,18 +84,28 @@ const Centre = styled.div`
   display: flex;
   align-item: centre;
   justify-content: center;
+  @media (max-width: 768px){
+    display: none;
+  }
 `;
 const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media (max-width: 768px){
+    flex: 2;
+  }
 `;
 
 const BrandLogo = styled.h1`
   font-weight: 600;
   font-family: "Montserrat";
   font-size: 20px;
+
+  @media (max-width: 768px){
+    font-size: 18px;
+  }
 `;
 
 const LocationContainer = styled.div`
@@ -135,5 +148,12 @@ const MenuItem = styled.div`
   font-weight: 500;
   cursor: pointer;
   color: #000;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px){
+    margin: 10px;
+  }
 `;
+
 
