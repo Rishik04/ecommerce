@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { URL } from "../redux/actions/baseURL";
 // import { productCategory } from "../data";
 
 
@@ -104,7 +105,7 @@ const ProductSlider = () => {
       useEffect(() => {
        const getCategory = async ()=>{
         try{
-          const res = await axios.get('http://localhost:8000/api/category');
+          const res = await axios.get(`${URL}/api/category`);
           // console.log(res)
           setProductCategory(res.data.success.data)
         }

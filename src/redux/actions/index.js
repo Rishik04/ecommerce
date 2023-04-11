@@ -1,10 +1,11 @@
 import axios from 'axios';
 import {FETCH_PRODUCTS, ERROR, FETCH_SUCCESS} from './types';
+import { URL } from './baseURL';
 
 export const getProducts = ()=> async dispatch=>{
     dispatch({type: FETCH_PRODUCTS, payload: []});
     try{
-        const data = await axios.get('http://localhost:8000/api/products');
+        const data = await axios.get(`${URL}/api/products`);
         // console.log("fetched");
         dispatch({type: FETCH_SUCCESS, payload:data.data.success.data});
     }
@@ -16,7 +17,7 @@ export const getProducts = ()=> async dispatch=>{
 export const getProductsById = (cartType)=> async dispatch=>{
     dispatch({type: FETCH_PRODUCTS, payload:[]});
     try{
-        const data = await axios.get(`http://localhost:8000/api/products/${cartType}`);
+        const data = await axios.get(`${URL}/api/products/${cartType}`);
 
         if(data.data.status === 400)
             dispatch({type: ERROR, payload: data.data.error.message})

@@ -1,11 +1,12 @@
 import axios from "axios";
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from "./types";
 import { LOGIN_ERROR, REGISTER_ERROR, REGISTER_REQ, REGISTER_SUCCESS, LOGIN_SUCCESS, } from "./types"
+import { URL } from "./baseURL";
 
 export const UserRegister = (user) => async (dispatch, getState)=>{
     dispatch({type: REGISTER_REQ, payload:{}})
     try{
-        const res = await axios.post('http://localhost:8000/user/register', user);
+        const res = await axios.post(`${URL}/user/register`, user);
         if(res.data.status === 200){
             dispatch({type: REGISTER_SUCCESS, payload: res.data.success});
             dispatch({type: LOGIN_SUCCESS, payload: res.data.success})
@@ -23,7 +24,7 @@ export const UserRegister = (user) => async (dispatch, getState)=>{
 export const UserLogin = (user) => async (dispatch, getState)=>{
     dispatch({type: LOGIN_REQUEST, payload: {}})
     try{
-        const res = await axios.post('http://localhost:8000/user/login', user);
+        const res = await axios.post(`${URL}/user/login`, user);
 
         if(res.data.status === 200){
             dispatch({type: LOGIN_SUCCESS, payload: res.data.success});
