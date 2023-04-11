@@ -17,11 +17,11 @@ const Shipping = () => {
     if (Object.keys(user).length === 0) {
       navigate("/signin");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     dispatch(getAddress(user._id));
-  }, []);
+  });
 
   const getState = useSelector((state) => state.carts);
   let total = getState.cartItems.reduce((x, y) => x + y?.price * y?.qty, 0);

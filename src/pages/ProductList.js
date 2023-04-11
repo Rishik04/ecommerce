@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import BestProductItems from "../components/BestProductItems";
-import BestProducts from "../components/BestProducts";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 const Container = styled.div`
   background-color: #f3f3f3;

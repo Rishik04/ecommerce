@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import BestProducts from "./BestProducts";
 import {getProducts, getProductsById} from '../redux/actions/index'
@@ -17,10 +16,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Title = styled.h1`
-  font-size: 40px;
-  font-weight: 600;
-`;
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;

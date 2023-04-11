@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { CurrencyRupeeOutlined } from "@mui/icons-material";
-import Address from "../components/ProfileComponents/Address";
 import PriceSideBar from "../components/PriceSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { addPayment } from "../redux/actions/orders";
