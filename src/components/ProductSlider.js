@@ -17,21 +17,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Button = styled.button`
-  background-color: darkorange;
-  border: none;
-  border-radius: 30px;
-  padding-left: 30px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  color: white;
-  font-family: "Montserrat";
-  font-weight: 500;
-  font-size: 14px;
-  width: 130px;
-  justify-content: flex-end;
-`;
 
 const Wrapper = styled.div`
   padding: 30px 0px;

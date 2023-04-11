@@ -16,8 +16,6 @@ const Register = () => {
 
   const dispatch = useDispatch();
 
-  let id;
-
   useEffect(()=>{
     if(getState.message!=='')
       toast(getState.message);

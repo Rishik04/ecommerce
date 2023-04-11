@@ -12,7 +12,7 @@ const Orders = () => {
     console.log()
     useEffect(()=>{
         dispatch(getOders(location.pathname.split("/")[2]))
-    },[])
+    })
   return (
     <>
     <Navbar/>

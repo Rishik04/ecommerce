@@ -23,7 +23,7 @@ const Login = () => {
     if(Object.keys(user).length!==0){
       navigate('/')
     }
-  },[getState, user])
+  },[getState, user, navigate])
 
   const schema = yup.object().shape({
     email: yup.string().required("Email is required").email(),

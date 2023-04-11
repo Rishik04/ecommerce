@@ -66,7 +66,7 @@ const Order = () => {
     if(orderId){
       navigate(`/order/${orderId}`)
     }
-  }, [orderId])
+  }, [orderId, navigate])
 
   useEffect(() => {
     if(Object.keys(user).length!==0 && Object.keys(cart).length!==0){
@@ -86,7 +86,7 @@ const Order = () => {
     else{
       navigate('/');
     }
-  }, []);
+  });
 
   const handlePayment = async () => {
     const res = await loadScript(
@@ -255,27 +255,10 @@ const Title = styled.h1`
 const Input = styled.input`
   margin: auto 2px;
 `;
-const Label = styled.label`
-  font-family: "Montserrat";
-  font-size: 16px;
-  font-weight: 600;
-  margin: 5px;
-`;
-
-const Left = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Right = styled.div``;
 
 const Image = styled.img`
   width: 80px;
   // height: 100%;
-`;
-const ImageContainer = styled.div`
-  height: 100%;
-  width: 100px;
 `;
 
 const SubTitle = styled.h3`

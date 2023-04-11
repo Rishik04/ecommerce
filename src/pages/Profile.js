@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ const Profile = () => {
     if (Object.keys(user.users).length === 0) {
       navigate("/signin");
     }
-  }, [navigate]);
+  }, [navigate, user.users]);
 
   const dispatch = useDispatch();
 
