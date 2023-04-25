@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ADDRESS_ERROR, ADDRESS_REQUEST, ADDRESS_SUCCESS, GET_ADDRESS_SUCCESS, GET_ADDRESS_ERROR, SELECT_ADDRESS_REQUEST, SELECT_ADDRESS_SUCCESS } from "./types";
-import { URL } from "./baseURL";
-
+import URL from '../../baseURL';
 
 
 export const addAddress = (address) => async (dispatch, getState)=>{

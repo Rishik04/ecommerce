@@ -21,7 +21,7 @@ const Shipping = () => {
 
   useEffect(() => {
     dispatch(getAddress(user._id));
-  });
+  }, [dispatch, user._id]);
 
   const getState = useSelector((state) => state.carts);
   let total = getState.cartItems.reduce((x, y) => x + y?.price * y?.qty, 0);

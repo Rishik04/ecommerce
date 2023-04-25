@@ -63,7 +63,7 @@ const BestProductItems = ({catType})=> {
     return (
       <Container>
         <Wrapper>
-          { (loading) ? <Skeleton /> : products.data.length===0 ? <ErrorProd error={products.error} type={"notFound"}/> :
+          { (loading) ? <Skeleton type={"products"} /> : products.data.length===0 ? <ErrorProd error={products.error} type={"notFound"}/> :
             products.data.map((item) => {
               return (
                 <BestProducts product = {item} key = {item._id}  addQuantity={()=>handleIncQuantity(item)} cart={cartItems} removeQuantity={()=>handleDecQuantity(item)} deleteItem={()=>deleteItems(item)}/>

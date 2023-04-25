@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
+import { ADD_TO_CART, ADD_TO_CART_FROM_PROFILE, DELETE_CART, DELETE_ITEM, INIT_APP, REMOVE_QUANTITY } from "../actions/types";
 
 const initialState = {
     cartItems: [],
@@ -42,6 +42,15 @@ export const cartReducer = (state = initialState, action)=>{
             else{
                 return state;
             }
+
+        case ADD_TO_CART_FROM_PROFILE:
+            if(localStorage.getItem('cartItem')){
+                return {...state, cartItems:JSON.parse(localStorage.getItem('cartItem'))}
+            }
+            else{
+                return state;
+            }
+
 
         default: return state;
     }

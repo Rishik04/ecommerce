@@ -43,15 +43,15 @@ const addOrder = async (req, res) => {
 
     console.log(paymentId, paymentMethod)
 
-    if (paymentMethod === "RAZORPAY" && paymentId !== "") {
+    if (paymentMethod === "RAZORPAY" && paymentId ) {
+      const orderList = await new orderModel(req.body).save();
       orderModel.isPaid = true;
-    }
-    const orderList = await new orderModel(req.body).save();
-
-    if (orderList.length !== 0) {
-      successResponse(res, "Order succesfull", orderList, 200);
-    } else {
-      errorResponse(res, "OrderError", "Order failed", 400);
+      orderModel().save();
+      if (orderList.length !== 0) {
+        successResponse(res, "Order successful", orderList, 200);
+      } else {
+        errorResponse(res, "OrderError", "Order failed", 400);
+      }
     }
   } catch (err) {
     errorResponse(res, err.name, err.message, 400);
@@ -60,16 +60,12 @@ const addOrder = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   try {
-    console.log(req.params.id);
     if (isValidObjectId(new mongoose.Types.ObjectId(req.params.id))) {
-      const orderItem = await orderModel.findOne({
-        _id: new mongoose.Types.ObjectId(req.params.id),
-      });
-      console.log(orderItem)
+      const orderItem = await orderModel.find({uId : new mongoose.Types.ObjectId(req.params.id)});
       if (orderItem.length !== 0) {
         successResponse(res, "Orders", orderItem, 200);
       } else {
-        errorResponse(res, "InvalidOrderId", "No orders found!", 400);
+        successResponse(res, "No Orders Found", [], 200);
       }
     }
     else{

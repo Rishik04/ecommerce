@@ -15,7 +15,7 @@ const Address = () => {
       if (user){
         dispatch(getAddress(user._id))
       }
-    });
+    },[dispatch, user]);
 
     const handleSelected = (e)=>{
       dispatch(selectAddress(e))

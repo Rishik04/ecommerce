@@ -67,7 +67,24 @@ const login = async (req, res) => {
   }
 };
 
+const addToCart = async (req, res)=>{
+  try{
+    console.log(req.body)
+    const userList = await userModel.findOneAndUpdate({_id: req.body.id}, {$set: {cart: req.body.cart}})
+    if(userList){
+     successResponse(res, "Added to cart", []);
+    }
+    else{
+     successResponse(res, "Can't add to cart", []);
+    }
+  }
+  catch(err){
+    errorResponse(res, err.name, err.message, 400); 
+  }
+}
+
 module.exports = {
   login,
   register,
+  addToCart
 };

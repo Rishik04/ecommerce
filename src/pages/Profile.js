@@ -14,15 +14,14 @@ import { Logout } from "../redux/actions/userAuth";
 const Profile = () => {
   const user = useSelector((state) => state.users);
   const navigate = useNavigate();
-
+  const carts = useSelector((state)=>state.carts.cartItems)
   useEffect(() => {
     if (Object.keys(user.users).length === 0) {
-      navigate("/signin");
+      navigate("/");
     }
   }, [navigate, user.users]);
 
   const dispatch = useDispatch();
-
 
   return (
     <>
@@ -81,25 +80,25 @@ const Profile = () => {
                     </NavLink>
                   </MenuItems>
                   <MenuItems>
-                  <ButtonContainer>
-                    <Button onClick={()=>dispatch(Logout())}>
-                      LOGOUT
-                    </Button>
-                  </ButtonContainer>
+                    <ButtonContainer>
+                      <Button onClick={() => dispatch(Logout(user.users._id, carts))}>LOGOUT</Button>
+                    </ButtonContainer>
                   </MenuItems>
                 </Menu>
               </LeftSideBar>
             </Left>
 
-            <Right>
-              <Routes>
-                <Route path="orders" element={<Orders />} />
-                <Route path="/address/*" element={<Address />} />
-                <Route path="/payments" element={<Payments />} />
-                <Route path="address/add-address" element={<AddAddress />} />
-                <Route path="/favourites" element={<WishList />} />
-              </Routes>
-            </Right>
+            
+              <RightContainer>
+                <Routes>
+                  <Route path="orders" element={<Orders />} />
+                  <Route path="/address/*" element={<Address />} />
+                  <Route path="/payments" element={<Payments />} />
+                  <Route path="address/add-address" element={<AddAddress />} />
+                  <Route path="/favourites" element={<WishList />} />
+                </Routes>
+              </RightContainer>
+            
           </Card>
         </Wrapper>
       </Container>
@@ -200,4 +199,24 @@ const MenuItems = styled.li`
   font-size: 18px;
   font-weight: 500;
   padding: 10px;
+`;
+
+const RightContainer = styled.div`
+  height: 80vh;
+  overflow-y: scroll;
+  flex: 2;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f3f3f3;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: darkorange;
+    border-radius: 5px;
+  }
 `;

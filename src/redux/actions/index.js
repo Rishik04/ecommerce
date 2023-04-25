@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {FETCH_PRODUCTS, ERROR, FETCH_SUCCESS} from './types';
-import { URL } from './baseURL';
+import URL from '../../baseURL';
 
 export const getProducts = ()=> async dispatch=>{
     dispatch({type: FETCH_PRODUCTS, payload: []});

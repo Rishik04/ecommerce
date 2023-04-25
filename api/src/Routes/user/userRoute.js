@@ -1,5 +1,5 @@
 const express = require("express");
-const { login, register } = require("../../Controllers/user/userController");
+const { login, register, addToCart } = require("../../Controllers/user/userController");
 const {
   addAddress,
   getAddress,
@@ -19,5 +19,6 @@ router.get("/get-address/:id", getAddress);
 router.post("/payment/orders", orders);
 router.post("/payment/success", addOrder);
 router.get("/get-order/:id", getOrderById);
+router.post("/add-to-cart", addToCart)
 
 module.exports = router;

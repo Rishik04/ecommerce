@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
+export const Skeleton = ({ type }) => {
+  const COUNTER = 5;
 
-export const Skeleton = () => {
-    const COUNTER = 5;
-    const ProductSkeleton = ()=>(
+  const ProductSkeleton = () => (
     <Container>
       <Wrapper>
         <Card>
@@ -23,12 +23,25 @@ export const Skeleton = () => {
           </TopBar>
         </Card>
       </Wrapper>
-    </Container>)
+    </Container>
+  );
 
-    return Array(COUNTER).fill(<ProductSkeleton/>);
+  const CategorySkeleton = () => (
+    <Container>
+      <Wrapper>
+        <CategoryCard>
+          <CategoryImageConatiner></CategoryImageConatiner>
+          <Title></Title>
+          <Category></Category>
+        </CategoryCard>
+      </Wrapper>
+    </Container>
+  );
+
+  return type === "products"
+    ? Array(COUNTER).fill(<ProductSkeleton />)
+    : Array(COUNTER).fill(<CategorySkeleton />);
 };
-
-
 
 const shrimmer = keyframes`
 to{
@@ -36,9 +49,16 @@ to{
 }
 `;
 
-const Container = styled.div`display: flex; justify-content: center; align-items: center; margin: 0;`;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+`;
 
-const Wrapper = styled.div`display: flex;`;
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 const Card = styled.div`
   max-width: 230px;
@@ -56,11 +76,11 @@ const ImageContainer = styled.div`
   margin: 10px;
 `;
 const Category = styled.div`
-width: 50px;
-height: 15px;
-background: #ddd;
-animation: ${shrimmer} 2s linear infinite alternate;
-margin: 10px;
+  width: 50px;
+  height: 15px;
+  background: #ddd;
+  animation: ${shrimmer} 2s linear infinite alternate;
+  margin: 10px;
 `;
 
 const Title = styled.div`
@@ -72,11 +92,11 @@ const Title = styled.div`
 `;
 
 const Quantity = styled.div`
-width: 70px;
-height: 20px;
-background: #ddd;
-animation: ${shrimmer} 2s linear infinite alternate;
-margin: 10px;
+  width: 70px;
+  height: 20px;
+  background: #ddd;
+  animation: ${shrimmer} 2s linear infinite alternate;
+  margin: 10px;
 `;
 
 const TopBar = styled.div`
@@ -88,13 +108,34 @@ const Wishlist = styled.span`
   height: 20px;
   background: #ddd;
   animation: ${shrimmer} 2s linear infinite alternate;
-  margin: 10px
-
+  margin: 10px;
 `;
 const Discount = styled.span`
   width: 50px;
   height: 20px;
   background: #ddd;
   animation: ${shrimmer} 2s linear infinite alternate;
-  margin: 10px
+  margin: 10px;
+`;
+
+const CategoryImageConatiner = styled.div`
+  background: #ddd;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  animation: ${shrimmer} 2s linear infinite alternate;
+`;
+
+const CategoryCard = styled.div`
+  height: 200px;
+  width: 180px;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;

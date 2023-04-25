@@ -1,4 +1,5 @@
 import {
+  ADD_CART_ITEM_TO_PROFILE_REQ,
     INIT_APP,
     LOGIN_ERROR,
   LOGIN_REQUEST,
@@ -36,7 +37,10 @@ export const userReducer = (state = initialState, action) => {
       return {...state, message: action.payload.message, loading: false};
 
     case LOGOUT_REQUEST:
-      return {...state, users: {}}
+      return {...state, users: {}, loading: false};
+
+    case ADD_CART_ITEM_TO_PROFILE_REQ:
+      return {...state, loading: true}
 
     case INIT_APP:
     if(localStorage.getItem('user')){

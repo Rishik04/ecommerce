@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { EastOutlined, WestOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { URL } from "../redux/actions/baseURL";
+import URL from "../baseURL";
+import { Skeleton } from "./skeleton/Skeleton";
 // import { productCategory } from "../data";
 
 
@@ -101,12 +102,13 @@ const Sliderdesc = styled.p`
 const ProductSlider = () => {
     const [ItemIndex, setItemIndex] = useState(0);
     const [productCategory, setProductCategory] = useState([]);
-
+    const [loading, setLoading] = useState(true);
       useEffect(() => {
        const getCategory = async ()=>{
         try{
           const res = await axios.get(`${URL}/api/category`);
           // console.log(res)
+          setLoading(false);
           setProductCategory(res.data.success.data)
         }
         catch(err){
@@ -133,7 +135,9 @@ const ProductSlider = () => {
     </Arrow>
     <Slide>
       <Wrapper Index={ItemIndex}>
-        {productCategory.map((product) => (
+        {
+        loading ? <Skeleton type={"category"} /> :
+        productCategory.map((product) => (
           <Slider key={product._id} bg={product.bg}>
             <SliderImage src={product.img} />
             <SliderTitle>{product.title}</SliderTitle>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ADD_PAYMENT_REQUEST, ADD_PAYMENT_SUCCESS, CREATE_ORDER_REQ, DELETE_CART, GET_ORDER_REQ, ORDER_ERROR, ORDER_SUCCESS } from "./types";
-import { URL } from "./baseURL";
-
+import URL from '../../baseURL';
 
 export const addPayment = (payment) => async (dispatch)=>{
     dispatch({type: ADD_PAYMENT_REQUEST, payload:{}})

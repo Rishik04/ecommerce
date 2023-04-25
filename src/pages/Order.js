@@ -16,7 +16,7 @@ const Order = () => {
     (state) => state.address?.selectedAddress
   );
   const orderId = useSelector(state=>state.orderDetails?.orders?._id)
-  const orderDetails = useSelector((state) => state.orderDetails?.orders);
+  const orderDetails = useSelector((state) => state.orderDetails.orders);
   const paymentMethod = useSelector((state) => state.order?.paymentMethod);
   const dispatch = useDispatch();
   const baseFare = 15;
@@ -63,6 +63,7 @@ const Order = () => {
   };
 
   useEffect(()=>{
+    console.log(orderId)
     if(orderId){
       navigate(`/order/${orderId}`)
     }
@@ -70,8 +71,7 @@ const Order = () => {
 
   useEffect(() => {
     if(Object.keys(user).length!==0 && Object.keys(cart).length!==0){
-
-      if (!orderDetails) {
+      if (orderDetails.length===0) {
         dispatch(
           createOrder({
             selectedAddress: selectedAddress,

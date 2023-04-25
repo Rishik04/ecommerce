@@ -33,10 +33,10 @@ export const createOrderReducer = (state = { loading: false }, action) => {
             amount: amount,
             currency: currency,
             receiptId: receipt,
-          },
+          }
         };
       } else {
-        return { ...state, orders: action.payload };
+        return { ...state, orders: action.payload, loading: false };
       }
     case ORDER_ERROR:
       return { ...state };
