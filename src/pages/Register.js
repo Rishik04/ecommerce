@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,12 +11,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
 
   const getState = useSelector(state=>state.users);
 
   const dispatch = useDispatch();
-
-  let id;
 
   useEffect(()=>{
     if(getState.message!=='')
@@ -34,7 +33,14 @@ const Register = () => {
         let regExp = new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/);
         return regExp.test(val);
       }),
-    password: yup.string().required("Password is required"),
+    password: yup.string()
+      .required("Password is required")
+      .min(6, "Password must contain at least 6 characters")
+      .max(10, "Password must contain at most 10 characters")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/\d/, "Password must contain at least one number")
+      .matches(/[@$!%*?&#]/, "Password must contain at least one special character"),
   });
 
   const {
@@ -49,6 +55,9 @@ const Register = () => {
     dispatch(UserRegister(data));
   };
 
+  const togglePassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   return (
     <Container>
@@ -71,7 +80,7 @@ const Register = () => {
                   {...register("name", { required: true })}
                   type="text"
                 />
-                {errors?.name?.message && <p>{errors?.name?.message}</p>}
+                {errors?.name?.message && <ErrorMessage>{errors?.name?.message}</ErrorMessage>}
               </InputContainer>
 
               <InputContainer>
@@ -81,18 +90,23 @@ const Register = () => {
                   {...register("email", { required: true })}
                   type="email"
                 />
-                {errors?.email?.message && <p>{errors?.email?.message}</p>}
+                {errors?.email?.message && <ErrorMessage>{errors?.email?.message}</ErrorMessage>}
               </InputContainer>
 
               <InputContainer>
                 <Label>Password:</Label>
+                <ToggleButton>
                 <Input
                   placeholder="Password"
-                  {...register("password", { required: true })}
-                  type="password"
+                  {...register("password",{ required: true })}
+                  type={showPassword ? "text" : "password"}
                 />
+                <div onClick={togglePassword} type="button">
+                    {showPassword ? <img src="assets/eye_off.svg" alt="eyeoff"></img> : <img src="assets/eye.svg" alt="eye"></img>}
+                </div>
+                </ToggleButton>
                 {errors?.password?.message && (
-                  <p>{errors?.password?.message}</p>
+                  <ErrorMessage>{errors?.password?.message}</ErrorMessage>
                 )}
               </InputContainer>
 
@@ -103,7 +117,7 @@ const Register = () => {
                   {...register("number", { required: true })}
                   type="tel"
                 />
-                {errors?.number?.message && <p>{errors?.number?.message}</p>}
+                {errors?.number?.message && <ErrorMessage>{errors?.number?.message}</ErrorMessage>}
               </InputContainer>
               <ButtonContainer>
                 <Button type="submit">Register</Button>
@@ -197,6 +211,7 @@ const Input = styled.input`
   background: #f3f3f3;
   height: 30px;
   padding: 5px;
+  width: 80%;
 `;
 const InputContainer = styled.div`
   display: flex;
@@ -252,4 +267,16 @@ const RegisterLink = styled.p`
   font-size: 14px;
   font-weight: 400;
   margin: 0;
+`;
+// Added ErrorMessage component for displaying errors
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+const ToggleButton = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
